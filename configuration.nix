@@ -87,9 +87,12 @@
     ];
   };
 
+  # Enable Hyprland
+  programs.hyprland.enable = true;
+  
   # Install firefox.
-  programs.firefox.enable = true;
-
+  # programs.firefox.enable = true;
+  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -98,6 +101,13 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    
+    # psyLo base
+    vim
+    git
+    kitty
+    brave    
+    
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
