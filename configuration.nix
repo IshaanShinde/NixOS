@@ -86,32 +86,40 @@
     #  thunderbird
     ];
   };
-
-  # Enable Hyprland
-  programs.hyprland.enable = true;
   
+#--------------------------------------------------------------------------------------------------#
+# Enable Hyprland
+#--------------------------------------------------------------------------------------------------#
+  programs.hyprland.enable = true;
+#--------------------------------------------------------------------------------------------------#
+
   # Install firefox.
   # programs.firefox.enable = true;
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
-  # Flakes
+
+#--------------------------------------------------------------------------------------------------#
+# Enable Flakes
+#--------------------------------------------------------------------------------------------------#
   nix.settings.experimental-features = [ "nix-command" "flakes"];
-  
+#--------------------------------------------------------------------------------------------------#
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    
+#--------------------------------------------------------------------------------------------------#
+    home-manager
+#--------------------------------------------------------------------------------------------------#
     # psyLo base
     vim
     git
     wget
     kitty
     brave    
-    
+#--------------------------------------------------------------------------------------------------#
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
