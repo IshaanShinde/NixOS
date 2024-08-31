@@ -1,51 +1,34 @@
-{ config, pkgs, ... }:
+{ pkgs, hyprland, ... }:
 
 {
-  home = {
-  username = "ishaan";
-  homeDirectory = "/home/ishaan";
-  stateVersion = "23.11";
-  };
   
-  # enable unfree packages
-  nixpkgs.config.allowUnfree = true;
+  imports = [
+    hyprland.homeManagerModules.default
+    ./programs
+  ];
+  
+  home = {
+    username = "ishaan";
+    homeDirectory = "/home/ishaan";
+    stateVersion = "24.11";
+  };
   
   home.packages = with pkgs; [
-  
     # user applications
-    discord
     brave
-    
+    discord
     
     # utils
+    git
     vim
+    vscode
+    
     zip
     unzip
-    wget
-    vscode
-    kitty
-    efibootmgr
     
-    # for hyprland
-    xdg-desktop-portal-hyprland
+    wget    
   ];
-
-  home.file = {
-  };
   
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-  };
-
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-#--------------------------------------------------------------------------------------------------#
-  imports = [
-    # hyprland
-    ./modules/hyprland.nix
-    
-    # other
-    ./modules/git.nix
-  ];
-#--------------------------------------------------------------------------------------------------#
+  
 }

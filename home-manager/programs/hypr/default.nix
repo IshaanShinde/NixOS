@@ -1,17 +1,18 @@
-{config, pkgs, ... }: 
-{
-  wayland.windowManager.hyprland = {
-    # Whether to enable Hyprland wayland compositor
-    enable = true;
-    # The hyprland package to use
-    package = pkgs.hyprland;
-    # Whether to enable XWayland
-    xwayland.enable = true;
+{ config, lib, pkgs, ... }:
 
-    # Optional
-    # Whether to enable hyprland-session.target on hyprland startup
+{
+  home.packages = with pkgs; [ 
+    waybar
+    swww
+  ];
+  
+  wayland.windowManager.hyprland = {
+    enable = true;
     systemd.enable = true;
-    # nvidiaPatches = true;
+    systemd.variables = ["--all"];
+    
+    #package = pkgs.hyprland;
+    #xwayland.enable = true;
     
     extraConfig = ''
       # See https://wiki.hyprland.org/Configuring/Keywords/
@@ -70,4 +71,5 @@
       bindm = $mainMod, mouse:273, resizewindow
     '';
   };
+
 }
