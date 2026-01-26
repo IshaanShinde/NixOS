@@ -30,6 +30,10 @@
 
     ];
 
-    programs.git.enable = true;
+    programs.git = {
+        enable = true;
+        settings.user.name  = "IshaanShinde";
+        settings.user.email = "ishaanshinde08@gmail.com";
+    };
     programs.home-manager.enable = true;
 }
