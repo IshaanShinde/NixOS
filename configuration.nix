@@ -62,6 +62,8 @@
 
     "vscode"
     "claude-code"
+    "discord"
+    
   ];
 
   programs.firefox.enable = true;
