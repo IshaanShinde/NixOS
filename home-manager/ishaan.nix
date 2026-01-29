@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
 {
-    imports = [ ./hyprland.nix ./ishaan_alias.nix ];
+    imports = [ 
+        ./hyprland.nix 
+        ./ishaan_alias.nix 
+        ./hyprpaper.nix    
+    ];
 
     home.username = "ishaan";
     home.homeDirectory = "/home/ishaan";

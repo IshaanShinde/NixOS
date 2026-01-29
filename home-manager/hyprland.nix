@@ -32,7 +32,7 @@
       # General
       general = {
         gaps_in = 4;
-        gaps_out = 8;
+        gaps_out = 16;
         border_size = 2;
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
@@ -206,7 +206,6 @@
       # Startup
       exec-once = [
         # "waybar"
-        "hyprpaper"
       ];
     };
   };
