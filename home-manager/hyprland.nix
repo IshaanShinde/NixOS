@@ -23,6 +23,11 @@
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
       ];
+
+      # NVIDIA cursor fix (replaces deprecated WLR_NO_HARDWARE_CURSORS)
+      cursor = {
+        no_hardware_cursors = true;
+      };
       
       # General
       general = {
