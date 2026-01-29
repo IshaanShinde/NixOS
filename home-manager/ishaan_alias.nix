@@ -11,7 +11,8 @@
             ngca = "sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations && sudo nix-collect-garbage";
 
             # git
-            g = "git";
+            g  = "git";
+            gs = "git status";
             ga = "git add .";
             gc = "git commit -m";
             gp = "git push origin";

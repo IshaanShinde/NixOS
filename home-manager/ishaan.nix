@@ -27,7 +27,7 @@
         # hyprland
         foot
         wofi
-        waybar
+        # waybar
         hyprpaper
         dunst
 

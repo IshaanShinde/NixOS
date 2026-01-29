@@ -10,7 +10,7 @@
     
     settings = {
       # Monitor
-      monitor = ",preferred,auto,auto";
+      monitor = "DP-4, 3840x2160@59.99700, 0x0, 1.33";
       
       # Programs
       "$terminal" = "foot";
@@ -205,7 +205,7 @@
       
       # Startup
       exec-once = [
-        "waybar"
+        # "waybar"
         "hyprpaper"
       ];
     };
