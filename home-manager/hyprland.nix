@@ -32,7 +32,7 @@
       # General
       general = {
         gaps_in = 4;
-        gaps_out = 4;
+        gaps_out = 8;
         border_size = 2;
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
@@ -43,7 +43,7 @@
       
       # Decoration
       decoration = {
-        rounding = 10;
+        rounding = 0;
         rounding_power = 2;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
