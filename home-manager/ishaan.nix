@@ -34,6 +34,7 @@
         # dev
         logseq
         vscode
+        vscode-extensions.anthropic.claude-code
         claude-code
         # cloud
         awscli2

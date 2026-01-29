@@ -43,7 +43,7 @@
       
       # Decoration
       decoration = {
-        rounding = 0;
+        rounding = 8;
         rounding_power = 2;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
@@ -115,7 +115,7 @@
       # Input
       input = {
         kb_layout = "us";
-        follow_mouse = 1;
+        follow_mouse = 2;
         sensitivity = 0;
         
         touchpad = {
