@@ -21,7 +21,7 @@
         firefox # fallback
         
         # hyprland
-        kitty
+        foot
         wofi
         waybar
         dunst

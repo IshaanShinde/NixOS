@@ -13,7 +13,7 @@
       monitor = ",preferred,auto,auto";
       
       # Programs
-      "$terminal" = "kitty";
+      "$terminal" = "foot";
       "$fileManager" = "dolphin";
       "$menu" = "wofi --show drun";
       "$mainMod" = "SUPER";
