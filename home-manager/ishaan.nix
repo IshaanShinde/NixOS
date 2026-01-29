@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-    imports = [ ./hyprland.nix ];
+    imports = [ ./hyprland.nix ./ishaan_alias.nix ];
 
     home.username = "ishaan";
     home.homeDirectory = "/home/ishaan";
@@ -15,19 +15,28 @@
         zip
         unzip
 
-        vscode
-        awscli2
+        # browsers
+        brave
+        # fallback
+        firefox 
 
-        firefox # fallback
+        # communication
+        discord
+        signal-desktop
         
         # hyprland
         foot
         wofi
         waybar
+        hyprpaper
         dunst
 
+        # dev
+        logseq
+        vscode
         claude-code
-
+        # cloud
+        awscli2
     ];
 
     programs.git = {

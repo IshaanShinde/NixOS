@@ -62,13 +62,13 @@
 
     "vscode"
     "claude-code"
-  ]; 
+  ];
+
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
     git
     vim
     wget
-    hyprpaper
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
