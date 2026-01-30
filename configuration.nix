@@ -59,12 +59,10 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "nvidia-x11"
     "nvidia-settings"
-
     "vscode"
     "vscode-extension-anthropic-claude-code"
     "claude-code"
     "discord"
-    
   ];
 
   programs.firefox.enable = true;

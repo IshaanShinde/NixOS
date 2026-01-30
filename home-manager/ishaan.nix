@@ -1,60 +1,57 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-    imports = [ 
-        ./hyprland.nix 
-        ./ishaan_alias.nix 
-        ./hyprpaper.nix    
-    ];
+  imports = [
+    ./hyprland
+    ./ishaan_alias.nix
+  ];
+  
+  home.username = "ishaan";
+  home.homeDirectory = "/home/ishaan";
+  home.stateVersion = "25.11";
+  
+  home.packages = with pkgs; [
+    # base
+    git
+    vim
+    wget
+    zip
+    unzip    
 
-    home.username = "ishaan";
-    home.homeDirectory = "/home/ishaan";
-    home.stateVersion = "25.11";
+    # browsers
+    brave
+    firefox # fallback     
 
-    home.packages = with pkgs; [
-        # base
-        git
-        vim
-        wget
-        zip
-        unzip
+    # communication
+    discord
+    signal-desktop
 
-        # browsers
-        brave
-        # fallback
-        firefox 
+    # hyprland
+    foot
+    wofi
+    dunst    
+    
+    # file manager
+    xfce.thunar
+    xfce.tumbler          # thumbnail service
+    ffmpegthumbnailer     # video thumbnails
+    webp-pixbuf-loader    # webp support    
+    
+    # dev
+    logseq
+    vscode
+    vscode-extensions.anthropic.claude-code
+    claude-code
+    # cloud
+    awscli2
+  ];
+  
+  programs.git = {
+      enable = true;
+      settings.user.name  = "IshaanShinde";
+      settings.user.email = "ishaanshinde08@gmail.com";
+  };
 
-        # communication
-        discord
-        signal-desktop
-        
-        # hyprland
-        foot
-        wofi
-        # waybar
-        hyprpaper
-        hyprshot
-        dunst
-
-        # file manager
-        xfce.thunar
-        xfce.tumbler          # thumbnail service
-        ffmpegthumbnailer     # video thumbnails
-        webp-pixbuf-loader    # webp support
-
-        # dev
-        logseq
-        vscode
-        vscode-extensions.anthropic.claude-code
-        claude-code
-        # cloud
-        awscli2
-    ];
-
-    programs.git = {
-        enable = true;
-        settings.user.name  = "IshaanShinde";
-        settings.user.email = "ishaanshinde08@gmail.com";
-    };
-    programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 }
+  
