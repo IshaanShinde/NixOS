@@ -172,6 +172,11 @@
         # Scroll workspaces
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
+
+        # Screenshots (hyprshot)
+        ", Print, exec, hyprshot -m output"
+        "SHIFT, Print, exec, hyprshot -m region"
+        "ALT, Print, exec, hyprshot -m window"
       ];
       
       # Mouse binds

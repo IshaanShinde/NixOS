@@ -33,7 +33,14 @@
         wofi
         # waybar
         hyprpaper
+        hyprshot
         dunst
+
+        # file manager
+        xfce.thunar
+        xfce.tumbler          # thumbnail service
+        ffmpegthumbnailer     # video thumbnails
+        webp-pixbuf-loader    # webp support
 
         # dev
         logseq
