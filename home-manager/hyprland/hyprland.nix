@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  xdg.portal.config.common.default = [ "hyprland" "gtk" ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;  # Use package from NixOS module

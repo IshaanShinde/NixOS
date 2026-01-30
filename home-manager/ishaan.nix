@@ -32,8 +32,8 @@
     dunst    
     
     # file manager
-    xfce.thunar
-    xfce.tumbler          # thumbnail service
+    thunar
+    tumbler               # thumbnail service
     ffmpegthumbnailer     # video thumbnails
     webp-pixbuf-loader    # webp support    
     
