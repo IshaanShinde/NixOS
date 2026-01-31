@@ -17,7 +17,7 @@
       # Programs
       "$terminal" = "foot";
       "$fileManager" = "thunar";
-      "$menu" = "wofi --show drun";
+      "$menu" = "fuzzel";
       "$mainMod" = "SUPER";
       
       # Environment variables
