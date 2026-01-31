@@ -11,9 +11,7 @@
       };
 
       background = [{
-        path = "screenshot";
-        blur_passes = 3;
-        blur_size = 8;
+        path = "~/Media/Osot-酒保/79e5ddabae5483112e6acd103c9ef3c262037719.jpg";
       }];
 
       input-field = [{
