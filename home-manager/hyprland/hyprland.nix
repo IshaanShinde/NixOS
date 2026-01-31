@@ -1,5 +1,8 @@
 { ... }:
 
+let
+  theme = import ../theme.nix;
+in
 {
   xdg.portal.config.common.default = [ "hyprland" "gtk" ];
 
@@ -36,8 +39,8 @@
         gaps_in = 4;
         gaps_out = 12;
         border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        "col.active_border" = "rgba(${builtins.substring 1 6 theme.accent}${theme.opacity})";
+        "col.inactive_border" = "rgba(${builtins.substring 1 6 theme.secondary}${theme.opacity})";
         resize_on_border = false;
         allow_tearing = false;
         layout = "dwindle";
@@ -54,7 +57,7 @@
           enabled = true;
           range = 4;
           render_power = 3;
-          color = "rgba(1a1a1aee)";
+          color = "rgba(${builtins.substring 1 6 theme.bg}${theme.opacity})";
         };
         
         blur = {
