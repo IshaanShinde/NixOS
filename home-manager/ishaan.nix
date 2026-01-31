@@ -3,6 +3,7 @@
 {
   imports = [
     ./hyprland
+    ./utils
     ./ishaan_alias.nix
   ];
   
@@ -26,17 +27,6 @@
     discord
     signal-desktop
 
-    # hyprland
-    foot
-    wofi
-    dunst    
-    
-    # file manager
-    thunar
-    tumbler               # thumbnail service
-    ffmpegthumbnailer     # video thumbnails
-    webp-pixbuf-loader    # webp support    
-    
     # dev
     logseq
     vscode

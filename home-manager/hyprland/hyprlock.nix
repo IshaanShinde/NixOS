@@ -32,6 +32,6 @@
   };
 
   wayland.windowManager.hyprland.settings.bind = [
-    "$mainMod, L, exec, hyprlock"
+    "$mainMod, n, exec, hyprlock"
   ];
 }

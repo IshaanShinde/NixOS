@@ -8,6 +8,7 @@
       rs = "sudo nixos-rebuild switch --flake /etc/nixos";
       ngc = "sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations +10 && sudo nix-collect-garbage";
       ngca = "sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations && sudo nix-collect-garbage";
+      nc = "cd /etc/nixos/";
       rebash = "source /home/ishaan/.bashrc";
 
       # git
@@ -19,6 +20,7 @@
       gc = "git commit -m";
       gp = "git push origin";
 
+      # temp
       wr = "cd /home/ishaan/Documents/Repositories/TDS/";
     };
   };
