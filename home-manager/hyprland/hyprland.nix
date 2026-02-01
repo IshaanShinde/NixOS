@@ -36,9 +36,9 @@ in
       
       # General
       general = {
-        gaps_in = 4;
-        gaps_out = 12;
-        border_size = 2;
+        gaps_in = theme.gaps_in;
+        gaps_out = theme.gaps_out;
+        border_size = theme.border_size;
         "col.active_border" = "rgba(${theme.accent}${theme.opacityHex})";
         "col.inactive_border" = "rgba(${theme.secondary}${theme.opacityHex})";
         resize_on_border = false;
@@ -48,16 +48,16 @@ in
       
       # Decoration
       decoration = {
-        rounding = 8;
+        rounding = theme.border_radius;
         rounding_power = 2;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
         
         shadow = {
-          enabled = true;
-          range = 4;
-          render_power = 3;
-          color = "rgba(${theme.bg}${theme.opacityHex})";
+          enabled = false;
+          # range = 4;
+          # render_power = 3;
+          # color = "rgba(${theme.bg}${theme.opacityHex})";
         };
         
         blur = {

@@ -8,7 +8,7 @@ in
     enable = true;
     settings = {
       main = {
-        font = "monospace:size=14";
+        font = "monospace:size=${theme.fontsize}";
       };
       colors = {
         background = "${theme.bg}${theme.opacityHex}";
@@ -20,7 +20,7 @@ in
         selection-match = "${theme.bg}${theme.opacityMax}";
       };
       border = {
-        width = 2;
+        width = theme.border_size;
       };
     };
   };

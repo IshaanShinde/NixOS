@@ -15,6 +15,13 @@ in
   opacityHex = toHex opacity;
   opacityMax = "ff";
 
+  fontsize = "14";
+  border_size = 2;
+  border_radius = 8;
+
+  gaps_in = 4;
+  gaps_out = 12;
+
   bg = "000000";
   surface = "1a1c1a";
   fg = "e8d5a3";

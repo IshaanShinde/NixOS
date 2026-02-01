@@ -8,7 +8,7 @@ in
     enable = true;
     settings = {
       main = {
-        font = "monospace:size=14";
+        font = "monospace:size=${theme.fontsize}";
       };
       colors = {
         alpha = theme.opacity;
