@@ -137,7 +137,6 @@ in
         "$mainMod, E, exec, $fileManager"
         "$mainMod, V, togglefloating,"
         "$mainMod, R, exec, $menu"
-        "$mainMod, A, exec, ags toggle panel"
         "$mainMod, P, pseudo,"
         "$mainMod, u, togglesplit,"
         
@@ -210,9 +209,7 @@ in
       ];
       
       # Startup
-      exec-once = [
-        "ags run"
-      ];
+      exec-once = [];
     };
   };
 }

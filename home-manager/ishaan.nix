@@ -4,7 +4,6 @@
   imports = [
     ./hyprland
     ./utils
-    ./ags
     ./ishaan_alias.nix
   ];
   
