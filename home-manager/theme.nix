@@ -18,8 +18,8 @@ in
 
   fontsize = "14";
   
-  border_size = 2;
-  border_radius = 8;
+  border_size = 0;
+  border_radius = 0;
 
   gaps_in = 4;
   gaps_out = 12;
