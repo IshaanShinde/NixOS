@@ -19,7 +19,7 @@
       wallpaper = [
         {
           monitor = "DP-4";
-          path = "~/Media/Osot-酒保/6971fdc1b06f7de6b9ff335df96de56862037719.jpg";
+          path = "~/Media/Osot-酒保/792f346bf2e0325eb72350bde0336fad62037719.jpg";
           fit_mode = "cover";
         }
       ];

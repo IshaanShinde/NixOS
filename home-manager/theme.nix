@@ -8,7 +8,7 @@ let
     in
       "${builtins.substring high 1 hexDigits}${builtins.substring low 1 hexDigits}";
 
-  opacity = 0.5;
+  opacity = 0.8;
   opacity_max = 1.0;
 in
 {
@@ -18,7 +18,7 @@ in
 
   fontsize = "14";
   
-  border_size = 0;
+  border_size = 4;
   border_radius = 0;
 
   gaps_in = 4;
