@@ -17,7 +17,10 @@
     vim
     wget
     zip
-    unzip    
+    unzip
+
+    # nixos
+    fastfetch
 
     # browsers
     brave

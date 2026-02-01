@@ -15,7 +15,7 @@ in
     
     settings = {
       # Monitor
-      monitor = "DP-4, 3840x2160@59.99700, 0x0, 1.33";
+      monitor = "DP-4, 3840x2160@59.99700, 0x0, 1.6";
       
       # Programs
       "$terminal" = "foot";
@@ -39,8 +39,8 @@ in
         gaps_in = 4;
         gaps_out = 12;
         border_size = 2;
-        "col.active_border" = "rgba(${builtins.substring 1 6 theme.accent}${theme.opacity})";
-        "col.inactive_border" = "rgba(${builtins.substring 1 6 theme.secondary}${theme.opacity})";
+        "col.active_border" = "rgba(${theme.accent}${theme.opacityHex})";
+        "col.inactive_border" = "rgba(${theme.secondary}${theme.opacityHex})";
         resize_on_border = false;
         allow_tearing = false;
         layout = "dwindle";
@@ -57,14 +57,14 @@ in
           enabled = true;
           range = 4;
           render_power = 3;
-          color = "rgba(${builtins.substring 1 6 theme.bg}${theme.opacity})";
+          color = "rgba(${theme.bg}${theme.opacityHex})";
         };
         
         blur = {
-          enabled = true;
-          size = 3;
-          passes = 1;
-          vibrancy = 0.1696;
+          enabled = false;
+          # size = 3;
+          # passes = 1;
+          # vibrancy = 0.1696;
         };
       };
       
@@ -113,8 +113,8 @@ in
       
       # Misc
       misc = {
-        force_default_wallpaper = 0;
-        disable_hyprland_logo = false;
+        force_default_wallpaper = -1;
+        disable_hyprland_logo = true;
       };
       
       # Input
