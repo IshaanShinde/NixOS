@@ -1,5 +1,8 @@
 { ... }:
 
+let
+  theme = import ../theme.nix;
+in
 {
   programs.hyprlock = {
     enable = true;
@@ -21,10 +24,11 @@
         valign = "center";
         placeholder_text = "";
         fade_on_empty = false;
-        outline_thickness = 2;
-        outer_color = "rgb(33ccff)";
-        inner_color = "rgb(1a1a1a)";
-        font_color = "rgb(ffffff)";
+
+        outline_thickness = theme.border_size;
+        outer_color = theme.accent;
+        inner_color = theme.surface;
+        font_color = theme.fg;
       }];
     };
   };

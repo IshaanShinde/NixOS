@@ -14,8 +14,8 @@ in
         border-color = "#${theme.accent}${theme.opacityHex}";
         border-size = theme.border_size;
         border-radius = theme.border_radius;
-        padding = "10";
-        margin = "10";
+        padding = theme.padding;
+        margin = theme.margin;
         default-timeout = 5000;
         max-visible = 3;
       };

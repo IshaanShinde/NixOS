@@ -9,18 +9,23 @@ let
       "${builtins.substring high 1 hexDigits}${builtins.substring low 1 hexDigits}";
 
   opacity = 0.5;
+  opacity_max = 1.0;
 in
 {
   inherit opacity;
   opacityHex = toHex opacity;
-  opacityMax = "ff";
+  opacityMax = toHex opacity_max;
 
   fontsize = "14";
+  
   border_size = 2;
   border_radius = 8;
 
   gaps_in = 4;
   gaps_out = 12;
+
+  padding = "10";
+  margin = "10";
 
   bg = "000000";
   surface = "1a1c1a";
