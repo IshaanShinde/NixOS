@@ -43,6 +43,7 @@
       enable = true;
       settings.user.name  = "IshaanShinde";
       settings.user.email = "ishaanshinde08@gmail.com";
+      extraConfig.core.editor = "vim";
   };
 
   programs.home-manager.enable = true;
