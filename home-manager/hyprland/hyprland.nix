@@ -137,7 +137,7 @@ in
         "$mainMod, E, exec, $fileManager"
         "$mainMod, V, togglefloating,"
         "$mainMod, R, exec, $menu"
-        "$mainMod, P, pseudo,"
+        "$mainMod, i, pseudo,"
         "$mainMod, u, togglesplit,"
         
         # Move focus

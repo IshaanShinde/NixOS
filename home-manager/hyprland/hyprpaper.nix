@@ -14,12 +14,15 @@
         "~/Media/Osot-酒保/6971fdc1b06f7de6b9ff335df96de56862037719.jpg"
         # qin bai sheng vs feng jiu ge
         "~/Media/Osot-酒保/88a1be1ed6e42cc5b073a91517bd109862037719.jpg" 
+        # xiao
+        "~/Media/Xiao --M-A- （抹茶茶香）.jpg"
+
       ];
       
       wallpaper = [
         {
           monitor = "DP-4";
-          path = "~/Media/Osot-酒保/792f346bf2e0325eb72350bde0336fad62037719.jpg";
+          path = "~/Media/Osot-酒保/79e5ddabae5483112e6acd103c9ef3c262037719.jpg";
           fit_mode = "cover";
         }
       ];
