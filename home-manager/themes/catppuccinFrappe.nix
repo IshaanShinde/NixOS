@@ -1,4 +1,3 @@
-
 {
   opacity = 0.8;
 
@@ -20,12 +19,12 @@
   cursor    = "232634"; # #232634
   cursorH   = "f2d5cf"; # #f2d5cf
   
-  sbg       = "4f5369"; # #4f5369
   sfg       = "c6d0f5"; # #c6d0f5
+  sbg       = "4f5369"; # #4f5369
 
   urls      = "8caaee"; # #8caaee
   accent    = "81c8be"; # #81c8be
-  urgent    = "bd1f1f"; # #bd1f1f
+  urgent    = "bd1f1f"; # #bd1f1f # nothing was red enough so I added this
 
   ansi = {
     b00 = "51576d"; # #51576d
@@ -56,6 +55,6 @@
   searchBoxNoMatch  = "232634"; # #232634
   searchBoxNoMatch2 = "e78284"; # #e78284 
 
-  jumpLabels = "232634"; # #232634 
+  jumpLabels  = "232634"; # #232634 
   jumpLabels2 = "ef9f76"; # #ef9f76
 }

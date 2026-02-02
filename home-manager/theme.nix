@@ -1,8 +1,11 @@
 let
-  activeTheme = "catppuccinFrappe";
+  activeTheme = "catppuccinMocha";
 
   themes = {
-    catppuccinFrappe = import ./themes/catppuccinFrappe.nix;
+    catppuccinLatte     = import ./themes/catppuccinLatte.nix;
+    catppuccinFrappe    = import ./themes/catppuccinFrappe.nix;
+    catppuccinMacchiato = import ./themes/catppuccinMacchiato.nix;
+    catppuccinMocha     = import ./themes/catppuccinMocha.nix;
   };
 
   selected = themes.${activeTheme};
