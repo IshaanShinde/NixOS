@@ -37,6 +37,7 @@
     claude-code
     # cloud
     awscli2
+    nomachine-client
   ];
   
   programs.git = {
@@ -48,4 +49,3 @@
 
   programs.home-manager.enable = true;
 }
-  

@@ -20,7 +20,7 @@ in
         max-visible = 3;
       };
       "urgency=low" = {
-        border-color = "#${theme.secondary}${theme.opacityHex}";
+        border-color = "#${theme.sbg}${theme.opacityHex}";
       };
       "urgency=critical" = {
         border-color = "#${theme.urgent}${theme.opacityMax}";

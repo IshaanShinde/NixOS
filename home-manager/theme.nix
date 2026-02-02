@@ -1,8 +1,8 @@
 let
-  activeTheme = "test";
+  activeTheme = "catppuccinFrappe";
 
   themes = {
-    test = import ./themes/test.nix;
+    catppuccinFrappe = import ./themes/catppuccinFrappe.nix;
   };
 
   selected = themes.${activeTheme};

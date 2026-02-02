@@ -27,7 +27,7 @@ in
 
         outline_thickness = theme.border_size;
         outer_color = theme.accent;
-        inner_color = theme.surface;
+        inner_color = theme.sbg;
         font_color = theme.fg;
       }];
     };

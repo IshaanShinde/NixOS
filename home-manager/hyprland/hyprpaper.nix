@@ -22,7 +22,7 @@
       wallpaper = [
         {
           monitor = "DP-4";
-          path = "~/Media/Osot-酒保/79e5ddabae5483112e6acd103c9ef3c262037719.jpg";
+          path = "~/Media/Xiao --M-A- （抹茶茶香）.jpg";
           fit_mode = "cover";
         }
       ];

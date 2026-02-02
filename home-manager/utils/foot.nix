@@ -12,8 +12,8 @@ in
       };
       colors = {
         alpha = theme.opacity;
-        background = theme.ansi.b00;
-        foreground = theme.ansi.b15;
+        background = theme.bg;
+        foreground = theme.fg;
         
         regular0 = theme.ansi.b00;
         regular1 = theme.ansi.b01;

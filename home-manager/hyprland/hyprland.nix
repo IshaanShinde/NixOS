@@ -5,13 +5,14 @@ let
 in
 {
   xdg.portal.config.common.default = [ "hyprland" "gtk" ];
-
+  
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;  # Use package from NixOS module
     systemd.enable = true;
     systemd.variables = ["--all"];
     xwayland.enable = true;
+    settings.xwayland.force_zero_scaling = true;
     
     settings = {
       # Monitor
@@ -40,7 +41,7 @@ in
         gaps_out = theme.gaps_out;
         border_size = theme.border_size;
         "col.active_border" = "rgba(${theme.accent}${theme.opacityHex})";
-        "col.inactive_border" = "rgba(${theme.secondary}${theme.opacityHex})";
+        "col.inactive_border" = "rgba(${theme.sbg}${theme.opacityHex})";
         resize_on_border = false;
         allow_tearing = false;
         layout = "dwindle";

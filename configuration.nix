@@ -63,6 +63,7 @@
     "vscode-extension-anthropic-claude-code"
     "claude-code"
     "discord"
+    "nomachine-client"
   ];
 
   programs.firefox.enable = true;
