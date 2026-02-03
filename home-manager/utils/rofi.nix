@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 let
   theme = import ../theme.nix;
-  inherit (config.lib.formats.rasi) mkLiteral;
+  l = config.lib.formats.rasi.mkLiteral;
+  border = "${toString theme.border_size}px";
+  radius = "${toString theme.border_radius}px";
 in
 {
   programs.rofi = {
@@ -19,72 +21,72 @@ in
 
     theme = {
       "*" = {
-        bg = mkLiteral "#${theme.bg}";
-        bgt = mkLiteral "#${theme.bg}${theme.opacityHex}";
-        fg = mkLiteral "#${theme.fg}";
-        fgt = mkLiteral "#${theme.fg}${theme.opacityHex}";
-        accent = mkLiteral "#${theme.accent}";
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "@fg";
+        bg = l "#${theme.bg}";
+        bgt = l "#${theme.bg}${theme.opacityHex}";
+        fg = l "#${theme.fg}";
+        fgt = l "#${theme.fg}${theme.opacityHex}";
+        accent = l "#${theme.accent}";
+        background-color = l "transparent";
+        text-color = l "@fg";
       };
 
       window = {
-        width = mkLiteral "40em";
-        height = mkLiteral "40em";
-        location = mkLiteral "center";
-        x-offset = mkLiteral "-6em";
-        background-image = mkLiteral ''url("${theme.wallpaper}", height)'';
-        border = mkLiteral "${toString theme.border_size}px";
-        border-color = mkLiteral "@accent";
-        border-radius = mkLiteral "${toString theme.border_radius}px";
+        width = l "40em";
+        height = l "40em";
+        location = l "center";
+        x-offset = l "-6em";
+        background-color = l "@bgt";
+        border = l border;
+        border-color = l "@accent";
+        border-radius = l radius;
       };
 
       mainbox = {
-        background-color = mkLiteral "@bgt";
-        padding = mkLiteral "1em";
-        children = map mkLiteral [ "inputbar" "listview" ];
-        spacing = mkLiteral "1em";
+        # background-color = l "@bgt";
+        padding = l "1em";
+        children = map l [ "inputbar" "listview" ];
+        spacing = l "1em";
       };
 
       inputbar = {
-        text-color = mkLiteral "@accent";
-        border = mkLiteral "${toString theme.border_size}px";
-        border-color = mkLiteral "@fgt";
-        border-radius = mkLiteral "${toString theme.border_radius}px";
-        padding = mkLiteral "0.5em 1em";
-        children = map mkLiteral [ "entry" ];
+        text-color = l "@accent";
+        border = l border;
+        border-color = l "@fgt";
+        border-radius = l radius;
+        padding = l "0.5em 1em";
+        children = map l [ "entry" ];
       };
 
       entry = {
-        text-color = mkLiteral "inherit";
+        text-color = l "inherit";
         placeholder = "Search...";
-        placeholder-color = mkLiteral "@fgt";
+        placeholder-color = l "@fgt";
       };
 
       listview = {
         fixed-height = false;
-        spacing = mkLiteral "0.25em";
-        padding = mkLiteral "0.25em 0 0 0";
+        spacing = l "0.25em";
+        padding = l "0.25em 0 0 0";
       };
 
       element = {
-        padding = mkLiteral "0.5em 1em";
-        border-radius = mkLiteral "${toString theme.border_radius}px";
+        padding = l "0.5em 1em";
+        border-radius = l radius;
       };
 
       "element selected" = {
-        background-color = mkLiteral "@fgt";
-        text-color = mkLiteral "@bg";
+        background-color = l "@fgt";
+        text-color = l "@bg";
       };
 
       element-icon = {
-        size = mkLiteral "1em";
-        margin = mkLiteral "0 0.5em 0 0";
+        size = l "1em";
+        margin = l "0 0.5em 0 0";
       };
 
       element-text = {
-        text-color = mkLiteral "inherit";
-        vertical-align = mkLiteral "0.25";
+        text-color = l "inherit";
+        vertical-align = l "0.25";
       };
     };
   };
