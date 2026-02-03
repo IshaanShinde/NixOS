@@ -31,6 +31,8 @@ in
       window = {
         width = mkLiteral "40em";
         height = mkLiteral "40em";
+        location = mkLiteral "center";
+        x-offset = mkLiteral "-6em";
         background-image = mkLiteral ''url("${theme.wallpaper}", height)'';
         border = mkLiteral "${toString theme.border_size}px";
         border-color = mkLiteral "@accent";

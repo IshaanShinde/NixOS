@@ -1,0 +1,28 @@
+; Control center window - positioned right of center
+(defwindow control-center
+  :monitor 0
+  :geometry (geometry
+    :x "21em"
+    :y "0%"
+    :width "12em"
+    :height "40em"
+    :anchor "center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable true
+  (control-center-layout))
+
+(defwidget control-center-layout []
+  (box :class "control-center" :orientation "v" :space-evenly false
+    (power-section)))
+
+(defwidget power-section []
+  (box :class "power" :orientation "v" :space-evenly false :valign "start"
+    (power-btn :icon "" :action "systemctl poweroff" :tip "Shutdown")
+    (power-btn :icon "" :action "systemctl reboot" :tip "Reboot")
+    (power-btn :icon "" :action "systemctl suspend" :tip "Suspend")
+    (power-btn :icon "" :action "loginctl lock-session" :tip "Lock")))
+
+(defwidget power-btn [icon action tip]
+  (button :class "power-btn" :onclick action :tooltip tip
+    (label :text icon)))
