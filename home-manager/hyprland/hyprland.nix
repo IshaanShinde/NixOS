@@ -21,7 +21,7 @@ in
       # Programs
       "$terminal" = "foot";
       "$fileManager" = "thunar";
-      "$menu" = "fuzzel";
+      "$menu" = "rofi -show drun";
       "$mainMod" = "SUPER";
       
       # Environment variables

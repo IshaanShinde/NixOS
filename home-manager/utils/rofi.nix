@@ -1,104 +1,88 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   theme = import ../theme.nix;
-  inherit (pkgs.lib) mkLiteral;
+  inherit (config.lib.formats.rasi) mkLiteral;
 in
 {
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
-
     font = "monospace ${theme.fontsize}";
 
     extraConfig = {
       modi = "drun,run";
       show-icons = true;
-      icon-theme = "Papirus";
       display-drun = "";
       drun-display-format = "{name}";
+      scroll-method = 1;
     };
 
     theme = {
       "*" = {
         bg = mkLiteral "#${theme.bg}";
+        bgt = mkLiteral "#${theme.bg}${theme.opacityHex}";
         fg = mkLiteral "#${theme.fg}";
+        fgt = mkLiteral "#${theme.fg}${theme.opacityHex}";
         accent = mkLiteral "#${theme.accent}";
-        urgent = mkLiteral "#${theme.urgent}";
-
         background-color = mkLiteral "transparent";
         text-color = mkLiteral "@fg";
-        spacing = 0;
       };
 
       window = {
-        width = mkLiteral "800px";
-        height = mkLiteral "500px";
-        background-color = mkLiteral "@bg";
+        width = mkLiteral "40em";
+        height = mkLiteral "40em";
+        background-image = mkLiteral ''url("${theme.wallpaper}", height)'';
         border = mkLiteral "${toString theme.border_size}px";
         border-color = mkLiteral "@accent";
         border-radius = mkLiteral "${toString theme.border_radius}px";
-        padding = mkLiteral "${theme.padding}px";
       };
 
       mainbox = {
-        background-color = mkLiteral "transparent";
+        background-color = mkLiteral "@bgt";
+        padding = mkLiteral "1em";
         children = map mkLiteral [ "inputbar" "listview" ];
-        spacing = mkLiteral "${theme.padding}px";
+        spacing = mkLiteral "1em";
       };
 
-      # Search bar styled like a smaller window
       inputbar = {
-        background-color = mkLiteral "@fg";
-        text-color = mkLiteral "@bg";
+        text-color = mkLiteral "@accent";
+        border = mkLiteral "${toString theme.border_size}px";
+        border-color = mkLiteral "@fgt";
         border-radius = mkLiteral "${toString theme.border_radius}px";
-        padding = mkLiteral "${theme.padding}px";
+        padding = mkLiteral "0.5em 1em";
         children = map mkLiteral [ "entry" ];
       };
 
       entry = {
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "@bg";
+        text-color = mkLiteral "inherit";
         placeholder = "Search...";
-        placeholder-color = mkLiteral "#${theme.sbg}";
+        placeholder-color = mkLiteral "@fgt";
       };
 
-      # Results list
       listview = {
-        background-color = mkLiteral "transparent";
-        columns = 1;
-        lines = 8;
-        scrollbar = false;
-        spacing = mkLiteral "4px";
-        padding = mkLiteral "${theme.padding}px 0 0 0";
+        fixed-height = false;
+        spacing = mkLiteral "0.25em";
+        padding = mkLiteral "0.25em 0 0 0";
       };
 
       element = {
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "@fg";
-        padding = mkLiteral "${theme.padding}px";
+        padding = mkLiteral "0.5em 1em";
         border-radius = mkLiteral "${toString theme.border_radius}px";
       };
 
       "element selected" = {
-        background-color = mkLiteral "@accent";
+        background-color = mkLiteral "@fgt";
         text-color = mkLiteral "@bg";
       };
 
-      "element urgent" = {
-        text-color = mkLiteral "@urgent";
-      };
-
       element-icon = {
-        size = mkLiteral "24px";
-        margin = mkLiteral "0 ${theme.padding}px 0 0";
-        background-color = mkLiteral "transparent";
+        size = mkLiteral "1em";
+        margin = mkLiteral "0 0.5em 0 0";
       };
 
       element-text = {
-        background-color = mkLiteral "transparent";
         text-color = mkLiteral "inherit";
-        vertical-align = mkLiteral "0.5";
+        vertical-align = mkLiteral "0.25";
       };
     };
   };
