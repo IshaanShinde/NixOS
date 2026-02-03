@@ -1,4 +1,6 @@
 {
+  wallpaper = "~/Media/Xiao --M-A- （抹茶茶香）.jpg";
+
   opacity = 0.8;
 
   fontsize = "14";

@@ -40,7 +40,7 @@ in
         gaps_in = theme.gaps_in;
         gaps_out = theme.gaps_out;
         border_size = theme.border_size;
-        "col.active_border" = "rgba(${theme.accent}${theme.opacityHex})";
+        "col.active_border" = "rgba(${theme.accent}${theme.opacityMax})";
         "col.inactive_border" = "rgba(${theme.sbg}${theme.opacityHex})";
         resize_on_border = false;
         allow_tearing = false;

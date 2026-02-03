@@ -9,9 +9,11 @@ in
     settings = {
       main = {
         font = "monospace:size=${theme.fontsize}";
+        pad  = "${theme.padding}x0";
       };
       colors = {
         alpha = theme.opacity;
+
         background = theme.bg;
         foreground = theme.fg;
         

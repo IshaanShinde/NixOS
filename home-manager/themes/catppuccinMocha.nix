@@ -1,13 +1,15 @@
 {
-  opacity = 0.8;
+  wallpaper = "~/Media/Xiao --M-A- （抹茶茶香）.jpg";
+
+  opacity = 0.6;
 
   fontsize = "14";
 
   border_size = 4;
-  border_radius = 0;
+  border_radius = 8;
 
-  gaps_in = 4;
-  gaps_out = 12;
+  gaps_in = 2;
+  gaps_out = 8;
 
   padding = "10";
   margin = "10";
