@@ -22,6 +22,7 @@
 
       # temp
       wr = "cd /home/ishaan/Documents/Repositories/TDS/";
+      agent = "aws sso login --profile claudeAgentTest";
     };
   };
 }

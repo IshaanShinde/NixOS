@@ -4,13 +4,14 @@
   imports = [
     ./hyprland
     ./utils
+    ./development
     ./ishaan_alias.nix
   ];
-  
+
   home.username = "ishaan";
   home.homeDirectory = "/home/ishaan";
   home.stateVersion = "25.11";
-  
+
   home.packages = with pkgs; [
     # base
     git
@@ -24,28 +25,15 @@
 
     # browsers
     brave
-    firefox # fallback     
+    firefox
 
     # communication
     discord
     signal-desktop
 
-    # dev
-    logseq
-    vscode
-    vscode-extensions.anthropic.claude-code
-    claude-code
-    # cloud
-    awscli2
-    nomachine-client
+    # other
+    spotify
   ];
-  
-  programs.git = {
-      enable = true;
-      settings.user.name  = "IshaanShinde";
-      settings.user.email = "ishaanshinde08@gmail.com";
-      settings.core.editor = "vim";
-  };
 
   programs.home-manager.enable = true;
 }

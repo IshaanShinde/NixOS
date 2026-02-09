@@ -63,6 +63,7 @@
     "vscode-extension-anthropic-claude-code"
     "claude-code"
     "discord"
+    "spotify"
     "nomachine-client"
   ];
 
@@ -82,7 +83,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # for the love of god please don't touch this >w<"
 
 }
 

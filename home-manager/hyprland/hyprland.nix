@@ -54,19 +54,8 @@ in
         active_opacity = 1.0;
         inactive_opacity = 1.0;
         
-        shadow = {
-          enabled = false;
-          # range = 4;
-          # render_power = 3;
-          # color = "rgba(${theme.bg}${theme.opacityHex})";
-        };
-        
-        blur = {
-          enabled = false;
-          # size = 3;
-          # passes = 1;
-          # vibrancy = 0.1696;
-        };
+        shadow.enabled = false;
+        blur.enabled = false;
       };
       
       # Animations
@@ -107,11 +96,7 @@ in
         pseudotile = true;
         preserve_split = true;
       };
-      
-      master = {
-        new_status = "master";
-      };
-      
+
       # Misc
       misc = {
         force_default_wallpaper = -1;
