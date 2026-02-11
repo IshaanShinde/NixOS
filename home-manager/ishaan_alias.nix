@@ -6,8 +6,7 @@
     shellAliases = {
       # nixos
       rs = "sudo nixos-rebuild switch --flake /etc/nixos";
-      ngc = "sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations +10 && sudo nix-collect-garbage";
-      ngca = "sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations && sudo nix-collect-garbage";
+      ngc = "sudo nix-collect-garbage -d";
       nc = "cd /etc/nixos/";
       rebash = "source /home/ishaan/.bashrc";
 
@@ -21,7 +20,9 @@
       gp = "git push origin";
 
       # temp
-      wr = "cd /home/ishaan/Documents/Repositories/TDS/";
+      wr = "cd /home/ishaan/Documents/Repositories/TDS/; nix develop";
+      wb = "cd /home/ishaan/Documents/Repositories/TDS/backend/; ENVIRONMENT=development python app.py";
+      wf = "cd /home/ishaan/Documents/Repositories/TDS/frontend/; npm run dev";
       agent = "aws sso login --profile claudeAgentTest";
     };
   };

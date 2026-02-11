@@ -18,7 +18,7 @@ in
       }];
 
       input-field = [{
-        size = "200, 50";
+        size = "400, 40";
         position = "0, -80";
         halign = "center";
         valign = "center";

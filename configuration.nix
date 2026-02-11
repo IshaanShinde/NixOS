@@ -60,7 +60,7 @@
     "nvidia-x11"
     "nvidia-settings"
     "vscode"
-    "vscode-extension-anthropic-claude-code"
+    "vscode-extension-MS-python-vscode-pylance"
     "claude-code"
     "discord"
     "spotify"

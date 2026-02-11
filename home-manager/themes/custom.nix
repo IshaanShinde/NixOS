@@ -1,11 +1,11 @@
 {
-  wallpaper = "~/Media/Xiao --M-A- （抹茶茶香）.jpg";
+  wallpaper = "~/Media/不想当画家的Leo-126032669_p0.jpg";
 
   opacity = 0.8;
 
   fontsize = "14";
 
-  border_size = 4;
+  border_size = 5;
   border_radius = 0;
 
   gaps_in = 2;
