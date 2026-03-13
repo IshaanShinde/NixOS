@@ -21,7 +21,7 @@
 
       # temp
       wr = "cd /home/ishaan/Documents/Repositories/TDS/; nix develop";
-      wb = "cd /home/ishaan/Documents/Repositories/TDS/backend/; ENVIRONMENT=development python app.py";
+      wb = "cd /home/ishaan/Documents/Repositories/TDS/backend/; ENVIRONMENT=development uvicorn-hmr app:app --port 8001";
       wf = "cd /home/ishaan/Documents/Repositories/TDS/frontend/; npm run dev";
       agent = "aws sso login --profile claudeAgentTest";
     };

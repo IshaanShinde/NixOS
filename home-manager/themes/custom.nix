@@ -1,20 +1,20 @@
 {
-  wallpaper = "~/Media/不想当画家的Leo-126032669_p0.jpg";
+  wallpaper = "~/Media/Osot-酒保/724c7d89dd5032c135d21f4dc1e1c8c762037719.jpg";
 
-  opacity = 0.8;
+  opacity = 0.6;
 
   fontsize = "14";
 
-  border_size = 5;
+  border_size = 0;
   border_radius = 0;
 
-  gaps_in = 2;
-  gaps_out = 8;
+  gaps_in  =  4;
+  gaps_out = 14;
 
   padding = "10";
   margin = "10";
 
-  fg        = "cdd6f4"; # #cdd6f4
+  fg        = "f5e0dc"; # #f5e0dc
   bg        = "000000"; # #000000
  #bg        = "1e1e2e"; # #1e1e2e
 
@@ -25,7 +25,7 @@
   sbg       = "414356"; # #414356
 
   urls      = "89b4fa"; # #89b4fa
-  accent    = "94e2d5"; # #94e2d5
+  accent    = "f5e0dc"; # #f5e0dc
   urgent    = "bd1f1f"; # #bd1f1f # nothing was red enough so I added this
 
   ansi = {

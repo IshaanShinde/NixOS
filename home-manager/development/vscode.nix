@@ -11,11 +11,13 @@
         ms-python.python
         ms-python.debugpy
         ms-python.vscode-pylance
+        anthropic.claude-code
       ];
 
       userSettings = {
 
         # UI
+        "workbench.colorTheme" = "Bearded Theme Black & Amethyst";
         "workbench.activityBar.location" = "hidden";
         "workbench.statusBar.visible" = false;
         "workbench.tips.enabled" = false;
@@ -30,7 +32,8 @@
         "window.customMenuBarAltFocus" = false;
         "window.enableMenuBarMnemonics" = false;
         "window.menuBarVisibility" = "hidden";
-        "window.density.editorTabHeight" = "compact";
+        # "window.density.editorTabHeight" = "compact";
+        "workbench.editor.showTabs" = "none";
 
         # Editor
         "editor.minimap.enabled" = false;
@@ -48,6 +51,28 @@
         "colorize.languages" = [
           "nix" "css" "sass" "scss" "less"
           "postcss" "sss" "stylus" "xml" "svg"
+        ];
+
+        # Claude Code
+        "claudeCode.selectedModel" = "us.anthropic.claude-opus-4-5-20251101-v1:0";
+        "claudeCode.preferredLocation" = "panel";
+        "claudeCode.environmentVariables" = [
+          {
+            "name" = "AWS_PROFILE";
+            "value" = "claudeAgentTest";
+          }
+          {
+            "name" = "AWS_REGION";
+            "value" = "us-east-1";
+          }
+          {
+            "name" = "BEDROCK_MODEL_ID";
+            "value" = "us.anthropic.claude-opus-4-5-20251101-v1:0";
+          }
+          {
+            "name" = "CLAUDE_CODE_USE_BEDROCK";
+            "value" = "1";
+          }
         ];
       };
     };
