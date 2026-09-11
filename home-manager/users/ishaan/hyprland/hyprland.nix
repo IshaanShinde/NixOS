@@ -1,8 +1,5 @@
-{ ... }:
+{ theme, ... }:
 
-let
-  theme = import ../theme.nix;
-in
 {
   xdg.portal.config.common.default = [ "hyprland" "gtk" ];
   
@@ -15,13 +12,34 @@ in
     settings.xwayland.force_zero_scaling = true;
     
     settings = {
-      # Monitor
-      monitor = "DP-4, 3840x2160@59.99700, 0x0, 1.6";
+      # Monitors
+      # DP-4 (4k) at scale 1.6 => 2400x1350 logical, anchored at origin.
+      # HDMI-A-2 sits to its left, so it starts at -1920.
+      monitor = [
+        "DP-4, 3840x2160@59.99700, 0x0, 1.6"
+        "HDMI-A-2, 1920x1080@165, -1920x0, 1"
+      ];
+
+      # Workspaces 1-10 all live on the 4k (super+number switches between them).
+      # HDMI-A-2 owns workspace 11 permanently; nothing switches it away.
+      workspace = [
+        "1, monitor:DP-4, default:true"
+        "2, monitor:DP-4"
+        "3, monitor:DP-4"
+        "4, monitor:DP-4"
+        "5, monitor:DP-4"
+        "6, monitor:DP-4"
+        "7, monitor:DP-4"
+        "8, monitor:DP-4"
+        "9, monitor:DP-4"
+        "10, monitor:DP-4"
+        "11, monitor:HDMI-A-2, default:true, persistent:true"
+      ];
       
       # Programs
       "$terminal" = "foot";
       "$fileManager" = "thunar";
-      "$menu" = "rofi -show drun & eww open control-center";
+      "$menu" = "rofi -show drun";
       "$mainMod" = "SUPER";
       
       # Environment variables
@@ -40,7 +58,7 @@ in
         gaps_in = theme.gaps_in;
         gaps_out = theme.gaps_out;
         border_size = theme.border_size;
-        "col.active_border" = "rgba(${theme.accent}${theme.opacityMax})";
+        "col.active_border" = "rgba(${theme.accent}${theme.opacityMax}) rgba(${theme.accent2}${theme.opacityMax}) 180deg";
         "col.inactive_border" = "rgba(${theme.sbg}${theme.opacityHex})";
         resize_on_border = false;
         allow_tearing = false;
@@ -160,9 +178,10 @@ in
         "$mainMod, S, togglespecialworkspace, magic"
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
         
-        # Scroll workspaces
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+        # Scroll workspaces (r = wrap within 1-10, so scrolling never
+        # lands on the HDMI-A-2 workspace)
+        "$mainMod, mouse_down, workspace, r+1"
+        "$mainMod, mouse_up, workspace, r-1"
       ];
       
       # Mouse binds

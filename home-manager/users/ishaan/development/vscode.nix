@@ -54,7 +54,9 @@
         ];
 
         # Claude Code
-        "claudeCode.selectedModel" = "us.anthropic.claude-opus-4-5-20251101-v1:0";
+        "claudeCode.selectedModel" = "us.anthropic.claude-opus-4-6-v1";
+
+        #"claudeCode.selectedModel" = "arn:aws:bedrock:us-east-1:420032682984:inference-profile/us.anthropic.claude-opus-4-6-v1";
         "claudeCode.preferredLocation" = "panel";
         "claudeCode.environmentVariables" = [
           {
@@ -67,7 +69,7 @@
           }
           {
             "name" = "BEDROCK_MODEL_ID";
-            "value" = "us.anthropic.claude-opus-4-5-20251101-v1:0";
+            "value" = "arn:aws:bedrock:us-east-1:420032682984:inference-profile/us.anthropic.claude-opus-4-6-v1";
           }
           {
             "name" = "CLAUDE_CODE_USE_BEDROCK";

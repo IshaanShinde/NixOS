@@ -1,14 +1,11 @@
-{ ... }:
+{ theme, ... }:
 
-let
-  theme = import ../theme.nix;
-in
 {
   services.mako = {
     enable = true;
     settings = {
       "" = {
-        font = "monospace ${theme.fontsize}";
+        font = "${theme.fontMono} ${theme.fontsize}";
         background-color = "#${theme.bg}${theme.opacityHex}";
         text-color = "#${theme.fg}${theme.opacityMax}";
         border-color = "#${theme.accent}${theme.opacityHex}";

@@ -1,15 +1,19 @@
 {
-  wallpaper = "~/Media/Osot-酒保/724c7d89dd5032c135d21f4dc1e1c8c762037719.jpg";
+  wallpaper = "~/Media/Windows XPlosion.png";
 
-  opacity = 0.6;
+  opacity = 0.67;
 
   fontsize = "14";
 
-  border_size = 0;
-  border_radius = 0;
+  fontMono  = "SF Mono";
+  fontSans  = "SF Pro Text";
+  fontSerif = "New York";
+
+  border_size = 2;
+  border_radius = 10;
 
   gaps_in  =  4;
-  gaps_out = 14;
+  gaps_out =  8;
 
   padding = "10";
   margin = "10";
@@ -25,7 +29,8 @@
   sbg       = "414356"; # #414356
 
   urls      = "89b4fa"; # #89b4fa
-  accent    = "f5e0dc"; # #f5e0dc
+  accent    = "ff0000"; # #f5e0dc #ff0000
+  accent2   = "7c3ae0"; # #7c3ae0
   urgent    = "bd1f1f"; # #bd1f1f # nothing was red enough so I added this
 
   ansi = {

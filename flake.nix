@@ -17,7 +17,14 @@
   outputs = { self, nixpkgs, nixpkgs-claude, home-manager, ... }:
   let
     system = "x86_64-linux";
-    pkgs-claude = import nixpkgs-claude { inherit system; };
+    utils = import ./lib { };
+    mkTheme = import ./home-manager/themes { inherit utils; };
+    pkgs-claude = import nixpkgs-claude {
+      inherit system;
+      config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+        "claude-code"
+      ];
+    };
   in
   {
     nixosConfigurations.lisbeth = nixpkgs.lib.nixosSystem {
@@ -29,8 +36,11 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit pkgs-claude; };
-          home-manager.users.ishaan = import ./home-manager/ishaan.nix;
+          # values injected into every user module
+          home-manager.extraSpecialArgs = {
+            inherit pkgs-claude utils mkTheme;
+          };
+          home-manager.users.ishaan = import ./home-manager/users/ishaan;
         }
       ];
     };

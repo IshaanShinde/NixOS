@@ -1,8 +1,5 @@
-{ ... }:
+{ theme, ... }:
 
-let
-  theme = import ../theme.nix;
-in
 {
   programs.hyprlock = {
     enable = true;

@@ -1,8 +1,5 @@
-{ ... }:
+{ theme, ... }:
 
-let
-  theme = import ../theme.nix;
-in
 {
   services.hyprpaper = {
     enable = true;
@@ -15,6 +12,11 @@ in
       wallpaper = [
         {
           monitor = "DP-4";
+          path = theme.wallpaper;
+          fit_mode = "cover";
+        }
+        {
+          monitor = "HDMI-A-2";
           path = theme.wallpaper;
           fit_mode = "cover";
         }

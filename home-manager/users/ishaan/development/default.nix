@@ -12,5 +12,6 @@
     awscli2
     nomachine-client
     poppler-utils # pdf handling
+    qalculate-qt # calculator
   ];
 }

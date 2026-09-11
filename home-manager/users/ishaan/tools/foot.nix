@@ -1,14 +1,11 @@
-{ ... }:
+{ theme, ... }:
 
-let
-  theme = import ../theme.nix;
-in
 {
   programs.foot = {
     enable = true;
     settings = {
       main = {
-        font = "monospace:size=${theme.fontsize}";
+        font = "${theme.fontMono}:size=${theme.fontsize}";
         pad  = "${theme.padding}x0";
       };
       colors = {

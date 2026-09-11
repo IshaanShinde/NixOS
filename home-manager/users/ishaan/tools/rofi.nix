@@ -1,7 +1,6 @@
-{ config, ... }:
+{ config, theme, ... }:
 
 let
-  theme = import ../theme.nix;
   l = config.lib.formats.rasi.mkLiteral;
   border = "${toString theme.border_size}px";
   radius = "${toString theme.border_radius}px";
@@ -9,7 +8,7 @@ in
 {
   programs.rofi = {
     enable = true;
-    font = "monospace ${theme.fontsize}";
+    font = "${theme.fontMono} ${theme.fontsize}";
 
     extraConfig = {
       modi = "drun,run";

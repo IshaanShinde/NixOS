@@ -1,0 +1,5 @@
+# copy to .private_aliases (gitignored) for machine-local aliases
+# merged into programs.bash.shellAliases; tracked aliases win on conflict
+{
+  # work = "cd $HOME/path/to/repo; nix develop";
+}
