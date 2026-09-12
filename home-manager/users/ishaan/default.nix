@@ -25,17 +25,17 @@ let
 in
 {
   imports = [
+    # this user's theme, resolved from ./themes then the shared presets
+    (mkTheme {
+      name = "custom";
+      userThemes = ./themes;
+    })
+
     ./hyprland
     ./tools
     ./development
     ./shell.nix
   ];
-
-  # this user's theme, resolved from ./themes then the shared ones
-  _module.args.theme = mkTheme {
-    name = "custom";
-    userThemes = ./themes;
-  };
 
   home.username = "ishaan";
   home.homeDirectory = "/home/ishaan";

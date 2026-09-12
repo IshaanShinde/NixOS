@@ -1,10 +1,10 @@
 { utils }:
 
-# resolves a theme name against the shared themes here plus the user's own dir
+# resolves a theme name against ./presets plus the user's own dir; returns a module to import, not an attrset
 { name, userThemes ? null }:
 
 let
-  shared = utils.importNixFilesIn ./.;
+  shared = utils.importNixFilesIn ./presets;
 
   personal =
     if userThemes != null && builtins.pathExists userThemes
@@ -28,9 +28,20 @@ let
     fontSans  = "DejaVu Sans";
     fontSerif = "DejaVu Serif";
   };
-in
-  fontDefaults // selected // {
+
+  resolved = fontDefaults // selected // {
     opacityHex = utils.toHex selected.opacity;
     opacityMin = utils.toHex 0.0;
     opacityMax = utils.toHex 1.0;
-  }
+  };
+  theme = resolved // {
+    # `gtk` in a theme file stays the override block; this is the output
+    gtkColors = import ./gtk.nix { inherit utils; } resolved;
+  };
+in
+{
+  imports = [ ./gtkApply.nix ];
+
+  # available as `theme` in every other module of this user
+  _module.args.theme = theme;
+}

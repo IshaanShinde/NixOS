@@ -62,6 +62,21 @@
   searchBoxNoMatch  = "11111b"; # #11111b
   searchBoxNoMatch2 = "f38ba8"; # #f38ba8 
 
-  jumpLabels  = "11111b"; # #11111b 
+  jumpLabels  = "11111b"; # #11111b
   jumpLabels2 = "fab387"; # #fab387
+
+  # app-scoped css; selectors are prefixed per app by themes/gtk.nix
+  thunar = {
+    # the window tints at the theme opacity; inner surfaces clear so it shows
+    "" = "background: alpha(@window_bg_color, 0.67);";
+    ".background" = "background: transparent;";
+    "headerbar, .titlebar" = "background: transparent;";
+    "menubar, menubar > menuitem" = "background: transparent;";
+    "toolbar, .toolbar" = "background: transparent;";
+    # the path bar is a box of buttons; clear the strip, keep the buttons
+    "box.horizontal, .linked" = "background: transparent;";
+    ".sidebar, placessidebar, placessidebar list" = "background: transparent;";
+    "scrolledwindow, treeview.view, .view" = "background: transparent;";
+    "notebook, notebook stack" = "background: transparent;";
+  };
 }

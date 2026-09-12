@@ -149,7 +149,14 @@
         "$mainMod, j, movefocus, d"
         "$mainMod, k, movefocus, u"
         "$mainMod, l, movefocus, r"
-        
+
+        # Swap window with its tiled neighbour (no-op if there is none, so
+        # the dwindle split orientation is never flipped)
+        "$mainMod SHIFT, h, swapwindow, l"
+        "$mainMod SHIFT, j, swapwindow, d"
+        "$mainMod SHIFT, k, swapwindow, u"
+        "$mainMod SHIFT, l, swapwindow, r"
+
         # Switch workspaces
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
