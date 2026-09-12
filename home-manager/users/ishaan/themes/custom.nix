@@ -28,6 +28,8 @@
   sfg       = "cdd6f4"; # #cdd6f4
   sbg       = "414356"; # #414356
 
+  divider   = "000000"; # #000000
+
   urls      = "89b4fa"; # #89b4fa
   accent    = "ff0000"; # #f5e0dc #ff0000
   accent2   = "7c3ae0"; # #7c3ae0
@@ -78,5 +80,8 @@
     ".sidebar, placessidebar, placessidebar list" = "background: transparent;";
     "scrolledwindow, treeview.view, .view" = "background: transparent;";
     "notebook, notebook stack" = "background: transparent;";
+    # the paned separator is the divider; drop the sidebar's own edge so the
+    # two do not stack into a double line
+    ".sidebar:not(separator)" = "border-right-style: none; border-left-style: none;";
   };
 }

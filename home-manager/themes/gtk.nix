@@ -72,6 +72,35 @@ let
     insensitive_bg_color   = "@window_bg_color";
     insensitive_base_color = "@window_bg_color";
 
+    # --- backdrop / shade ------------------------------------------------
+    # adw-gtk3 paints the unfocused window from these; left alone they are
+    # literals of its own (sidebar_backdrop_color is #28282c), so alias each
+    # to the focused counterpart and the two states match
+    headerbar_backdrop_color   = "@headerbar_bg_color";
+    sidebar_backdrop_color     = "@sidebar_bg_color";
+    unfocused_insensitive_color = "@insensitive_fg_color";
+
+    headerbar_shade_color        = "@shade_color";
+    headerbar_darker_shade_color = "@shade_color";
+    sidebar_shade_color          = "@shade_color";
+    card_shade_color             = "@shade_color";
+    popover_shade_color          = "@shade_color";
+
+    headerbar_border_color = "@headerbar_fg_color";
+
+    # `divider` in a theme file, else the window border color
+    divider_color        = css (or' "divider" (or' "borders" theme.fg));
+    sidebar_border_color = "@divider_color";
+
+    panel_bg_color = "@window_bg_color";
+    panel_fg_color = "@window_fg_color";
+
+    content_view_bg = "@view_bg_color";
+    text_view_bg    = "@view_bg_color";
+
+    wm_highlight    = "@headerbar_bg_color";
+    wm_borders_edge = "@borders";
+
     # --- gtk3-era aliases ----------------------------------------------
     # older apps (thunar, nemo, gtk2-era dialogs) still ask for these
     theme_bg_color   = "@window_bg_color";
@@ -124,6 +153,51 @@ let
                in if t == "" then "${scope}${suffix}" else "${scope} ${t}${suffix}";
     in builtins.concatStringsSep ", " (map one parts);
 
+  # restates the focused value on :backdrop, for the elements adw-gtk3 dims
+  # with a mix()/alpha() no @define-color can reach
+  # to extend: GTK_DEBUG=interactive <app>, find the node, then grep the
+  # adw-gtk3 gtk.css for "<node>:backdrop"
+  backdropPins = {
+    "placessidebar row" = "color: @sidebar_fg_color;";
+    "placessidebar row:selected" = "color: @theme_selected_fg_color;";
+    ".sidebar row" = "color: @sidebar_fg_color;";
+
+    "headerbar:not(.selection-mode)" = "color: @headerbar_fg_color;";
+    ".titlebar:not(.selection-mode)" = "color: @headerbar_fg_color;";
+    "headerbar .title" = "color: @headerbar_fg_color;";
+    ".default-decoration .title" = "color: @headerbar_fg_color;";
+    "headerbar entry" = "color: @view_fg_color; background-color: @view_bg_color;";
+    "headerbar entry image" = "color: @view_fg_color;";
+
+    "row.activatable:selected" = ''
+      background-color: @theme_selected_bg_color;
+      color: @theme_selected_fg_color;
+    '';
+
+    ".content-view .tile" = "background-color: @view_bg_color;";
+
+    "label" = "color: inherit;";
+    "treeview.view" = "color: @view_fg_color;";
+    "treeview.view:selected" = "color: @theme_selected_fg_color;";
+  };
+
+  # set in both states, so neither adw-gtk3's focused nor its backdrop rule shows
+  statePins = {
+    "paned > separator" = "background-image: image(@divider_color);";
+    "paned > separator.wide" =
+      "background-image: image(@divider_color), image(@divider_color);";
+  };
+
+  # the pins for one app, scoped to it
+  backdropBlock = app:
+    let
+      scope = appScope.${app};
+      pin = s: "${scopeSel scope ":backdrop" s} { ${toString backdropPins.${s}} }";
+      both = s: "${scopeSel scope "" s}, ${scopeSel scope ":backdrop" s} { ${toString statePins.${s}} }";
+    in builtins.concatStringsSep "\n"
+      (map pin (builtins.attrNames backdropPins)
+       ++ map both (builtins.attrNames statePins));
+
   # an app block in a theme file: { thunar = { ".sidebar" = "background: @window_bg_color;"; }; }
   # gtk styles an unfocused window apart (:backdrop); emitting both keeps the
   # look static, so a rule here means the same focused or not
@@ -137,6 +211,11 @@ let
   # app blocks the theme actually set
   themed = builtins.filter (app: theme ? ${app}) (builtins.attrNames appScope);
 
+  # every scoped app gets the backdrop pins, whether or not it has a theme block
+  pinnedBlock = builtins.concatStringsSep "\n\n"
+    (map (app: "/* ${app}: focused == unfocused */\n${backdropBlock app}")
+      (builtins.attrNames appScope));
+
   appBlock = builtins.concatStringsSep "\n\n"
     (map (app: "/* ${app} */\n${appRules app}") themed);
 in
@@ -145,9 +224,12 @@ in
   inherit colors;
 
   # user gtk.css: loads after the theme's own, so these redefinitions win
-  # app rules come after the colors, so they win over both
+  # order matters: colors, then the backdrop pins, then the theme's own app
+  # rules last so a `thunar = { ... }` block can still override a pin
   css = ''
     /* generated from the active theme; edits here are overwritten */
     ${block}
-  '' + (if themed == [ ] then "" else "\n${appBlock}\n");
+  ''
+  + "\n${pinnedBlock}\n"
+  + (if themed == [ ] then "" else "\n${appBlock}\n");
 }
