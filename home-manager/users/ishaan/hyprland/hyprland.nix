@@ -23,8 +23,8 @@
       # Workspaces 1-10 all live on the 4k (super+number switches between them).
       # HDMI-A-2 owns workspace 11 permanently; nothing switches it away.
       workspace = [
-        "1, monitor:DP-4, default:true"
-        "2, monitor:DP-4"
+        "1, monitor:HDMI-A-2, default:true, persistent:true"
+        "2, monitor:DP-4, default:true"
         "3, monitor:DP-4"
         "4, monitor:DP-4"
         "5, monitor:DP-4"
@@ -33,7 +33,6 @@
         "8, monitor:DP-4"
         "9, monitor:DP-4"
         "10, monitor:DP-4"
-        "11, monitor:HDMI-A-2, default:true, persistent:true"
       ];
       
       # Programs
