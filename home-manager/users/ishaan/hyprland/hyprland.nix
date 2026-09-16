@@ -5,7 +5,7 @@
   
   wayland.windowManager.hyprland = {
     enable = true;
-    package = null;  # Use package from NixOS module
+    package = null;  # from the NixOS module
     systemd.enable = true;
     systemd.variables = ["--all"];
     xwayland.enable = true;
@@ -13,15 +13,13 @@
     
     settings = {
       # Monitors
-      # DP-4 (4k) at scale 1.6 => 2400x1350 logical, anchored at origin.
-      # HDMI-A-2 sits to its left, so it starts at -1920.
+      # DP-4 (4k) at scale 1.6 => 2400x1350 logical, at the origin; HDMI-A-2 sits to its left
       monitor = [
         "DP-4, 3840x2160@59.99700, 0x0, 1.6"
         "HDMI-A-2, 1920x1080@165, -1920x0, 1"
       ];
 
-      # Workspaces 1-10 all live on the 4k (super+number switches between them).
-      # HDMI-A-2 owns workspace 11 permanently; nothing switches it away.
+      # HDMI-A-2 keeps workspace 1; 2-10 live on the 4k
       workspace = [
         "1, monitor:HDMI-A-2, default:true, persistent:true"
         "2, monitor:DP-4, default:true"
@@ -47,11 +45,10 @@
         "HYPRCURSOR_SIZE,24"
       ];
 
-      # NVIDIA cursor fix (replaces deprecated WLR_NO_HARDWARE_CURSORS)
+      # no_hardware_cursors is the NVIDIA fix (was WLR_NO_HARDWARE_CURSORS)
       cursor = {
         no_hardware_cursors = true;
-        # Hide the cursor after 1s without mouse movement; any move brings it back
-        inactive_timeout = 1;
+        inactive_timeout = 1; # hide after 1s idle
         hide_on_key_press = true;
       };
       
@@ -152,8 +149,7 @@
         "$mainMod, k, movefocus, u"
         "$mainMod, l, movefocus, r"
 
-        # Swap window with its tiled neighbour (no-op if there is none, so
-        # the dwindle split orientation is never flipped)
+        # Swap with the tiled neighbour (no-op if there is none)
         "$mainMod SHIFT, h, swapwindow, l"
         "$mainMod SHIFT, j, swapwindow, d"
         "$mainMod SHIFT, k, swapwindow, u"
@@ -187,16 +183,13 @@
         "$mainMod, S, togglespecialworkspace, magic"
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
         
-        # Scroll workspaces (r = wrap within 1-10, so scrolling never
-        # lands on the HDMI-A-2 workspace)
+        # Scroll workspaces; r wraps within 1-10
         "$mainMod, mouse_down, workspace, r+1"
         "$mainMod, mouse_up, workspace, r-1"
       ];
 
-      # Resize the active window (held keys repeat). Third layer on the same
-      # hjkl directions: mainMod = focus, SHIFT = swap, CTRL = resize.
-      # Direction is "move the active edge that way", not grow/shrink, so the
-      # effect depends on where the window sits in the dwindle split.
+      # Resize the active window; third hjkl layer after focus and swap
+      # direction moves the active edge, not grow/shrink
       binde = [
         "$mainMod CTRL, h, resizeactive, -40 0"
         "$mainMod CTRL, j, resizeactive, 0 40"

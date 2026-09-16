@@ -11,9 +11,8 @@
   fontSans  = "SF Pro Text";
   fontSerif = "New York";
 
-  # `name` is the directory under share/icons, `package` is what puts it there;
-  # both together so the two can't drift apart. `ls $(nix build --no-link
-  # --print-out-paths nixpkgs#<pkg>)/share/icons` lists the names a package ships
+  # `name` is the directory under share/icons, `package` is what puts it there
+  # list a package's names: ls $(nix build --no-link --print-out-paths nixpkgs#<pkg>)/share/icons
   icons = {
     name = "ketsa";
     package = pkgs.ketsa-icon-theme;
@@ -71,10 +70,8 @@
   };
 
   # per-app css, scoped to `.<app>` by themes/gtk.nix
-  # each is either an attrset of selector -> declarations (scoped and emitted
-  # for both states automatically) or a string of verbatim css (own the
-  # scoping and :backdrop yourself); inline it here when it is a line or two,
-  # or keep it in ./apps when it grows
+  # an attrset of selector -> declarations, or a string of verbatim css
+  # inline a line or two here; keep it in ./apps when it grows
   apps = {
     thunar = import ./apps/thunar.nix;
   };

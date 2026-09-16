@@ -1,8 +1,8 @@
 { utils }:
 
 # maps a theme's colors onto the gtk named-color set (@define-color), verbatim: no mixing, alpha, or shading
-# a name with no source color aliases one that has it, so every color traces back to a literal in the theme file
-# a theme's `gtk = { ... }` block overrides any name and is freeform, not an allowlist
+# a name with no source color aliases one that has it
+# a theme's `gtk = { ... }` block overrides any name, freeform
 
 theme:
 
@@ -73,9 +73,7 @@ let
     insensitive_base_color = "@window_bg_color";
 
     # --- backdrop / shade ------------------------------------------------
-    # adw-gtk3 paints the unfocused window from these; left alone they are
-    # literals of its own (sidebar_backdrop_color is #28282c), so alias each
-    # to the focused counterpart and the two states match
+    # adw-gtk3 paints the unfocused window from these; aliased to the focused counterpart so the states match
     headerbar_backdrop_color   = "@headerbar_bg_color";
     sidebar_backdrop_color     = "@sidebar_bg_color";
     unfocused_insensitive_color = "@insensitive_fg_color";
@@ -88,7 +86,7 @@ let
 
     headerbar_border_color = "@headerbar_fg_color";
 
-    # `divider` in a theme file, else the window border color
+    # `divider` in a theme file, else the border color
     divider_color        = css (or' "divider" (or' "borders" theme.fg));
     sidebar_border_color = "@divider_color";
 
@@ -101,8 +99,7 @@ let
     wm_highlight    = "@headerbar_bg_color";
     wm_borders_edge = "@borders";
 
-    # --- gtk3-era aliases ----------------------------------------------
-    # older apps (thunar, nemo, gtk2-era dialogs) still ask for these
+    # --- gtk3-era aliases, for older apps (thunar, nemo) ----------------
     theme_bg_color   = "@window_bg_color";
     theme_fg_color   = "@window_fg_color";
     theme_base_color = "@view_bg_color";
@@ -140,12 +137,10 @@ let
   # the theme's `apps = { <app> = ...; }` block, empty if it has none
   apps = or' "apps" { };
 
-  # gtk puts the application name on the root window node as a style class, so
-  # the app's own name is its scope; verify with GTK_DEBUG=interactive <app>
+  # gtk puts the app name on the root window node as a style class; verify with GTK_DEBUG=interactive <app>
   appScope = app: ".${app}";
 
-  # in a css selector list each part stands alone, so every part gets the scope
-  # and the suffix (":backdrop"), which must land on the part, not the list
+  # applies the scope and suffix (":backdrop") to each part of a selector list
   scopeSel = scope: suffix: sel:
     let
       parts = builtins.filter builtins.isString (builtins.split "," sel);
@@ -155,10 +150,8 @@ let
                in if t == "" then "${scope}${suffix}" else "${scope} ${t}${suffix}";
     in builtins.concatStringsSep ", " (map one parts);
 
-  # restates the focused value on :backdrop, for the elements adw-gtk3 dims
-  # with a mix()/alpha() no @define-color can reach
-  # to extend: GTK_DEBUG=interactive <app>, find the node, then grep the
-  # adw-gtk3 gtk.css for "<node>:backdrop"
+  # restates the focused value on :backdrop, for elements adw-gtk3 dims with a mix()/alpha() no @define-color can reach
+  # to extend: find the node with GTK_DEBUG=interactive <app>, then grep the adw-gtk3 gtk.css for "<node>:backdrop"
   backdropPins = {
     "placessidebar row" = "color: @sidebar_fg_color;";
     "placessidebar row:selected" = "color: @theme_selected_fg_color;";
@@ -200,15 +193,10 @@ let
       (map pin (builtins.attrNames backdropPins)
        ++ map both (builtins.attrNames statePins));
 
-  # an app entry is either an attrset of selector -> declarations:
+  # an app entry is either an attrset of selector -> declarations, each scoped to the app and emitted for both states:
   #   apps.thunar = { ".sidebar" = "background: @window_bg_color;"; };
-  # each selector is scoped to the app and emitted for both states, since gtk
-  # styles an unfocused window apart (:backdrop) and the look should not move
-  #
-  # or a string of css, passed through untouched:
-  #   apps.thunar = '''.thunar .sidebar { ... }''';
-  # for what the attrset cannot say (@media, nesting); it is the author's job
-  # to scope it and to restate anything that needs to survive :backdrop
+  # or a string of css passed through untouched, for what the attrset cannot say (@media, nesting);
+  # the author owns its scoping and :backdrop
   appRules = app:
     let
       entry = apps.${app};
@@ -221,7 +209,7 @@ let
 
   named = builtins.attrNames apps;
 
-  # every app named by the theme gets the backdrop pins, then its own rules
+  # every app named by the theme gets the pins, then its own rules
   pinnedBlock = builtins.concatStringsSep "\n\n"
     (map (app: "/* ${app}: focused == unfocused */\n${backdropBlock app}") named);
 
@@ -229,12 +217,10 @@ let
     (map (app: "/* ${app} */\n${appRules app}") named);
 in
 {
-  # the resolved name -> value map, for anything needing the colors directly
+  # the resolved name -> value map
   inherit colors;
 
-  # user gtk.css: loads after the theme's own, so these redefinitions win
-  # order matters: colors, then the backdrop pins, then the theme's own app
-  # rules last so an `apps.thunar = { ... }` block can still override a pin
+  # user gtk.css: loads after the theme's own, so these redefinitions win; app rules last so they can override a pin
   css = ''
     /* generated from the active theme; edits here are overwritten */
     ${block}

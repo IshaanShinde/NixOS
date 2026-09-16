@@ -5,16 +5,14 @@ let
   border = "${toString theme.border_size}px";
   radius = "${toString theme.border_radius}px";
 
-  # Grid vs list is not a rofi feature with a switch; it falls out of the
-  # listview/element blocks below. Flip this and rebuild to change layout.
+  # rofi has no grid switch; the layout falls out of the listview/element blocks below
   gridMode = false;
 
-  # Only what actually differs between the two; everything else is shared
-  # below and merged into by recursiveUpdate.
+  # only what differs; the rest is shared below, merged by recursiveUpdate
   layout = if gridMode then {
     window.width = l "55em";
     listview = { columns = 5; lines = 4; fixed-columns = true; fixed-height = true; };
-    # spacing = gap between icon and label, stacked vertically
+    # spacing = gap between icon and label
     element = { orientation = l "vertical"; padding = l "0.75em 0.25em"; spacing = l "0.5em"; };
     element-icon = { size = l "2.5em"; horizontal-align = l "0.5"; };
     element-text = { horizontal-align = l "0.5"; vertical-align = l "0.5"; };
@@ -38,8 +36,7 @@ in
       drun-display-format = "{name}";
       scroll-method = 1;
     }
-    # rofi has no gtk setting to inherit; it takes the name itself, and a theme
-    # naming no icon set leaves rofi on its default
+    # rofi takes the icon theme name itself; unset leaves it on its default
     // (if theme ? icons then { icon-theme = theme.icons.name; } else { });
 
     theme = lib.recursiveUpdate {

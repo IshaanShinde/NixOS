@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Separate nixpkgs for claude-code - update independently with:
+    # claude-code only, so it updates on its own:
     # nix flake lock --update-input nixpkgs-claude
     nixpkgs-claude.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -19,7 +19,7 @@
     system = "x86_64-linux";
     utils = import ./lib { };
     mkTheme = import ./home-manager/themes { inherit utils; };
-    # our own packages, as pkgs.<name> everywhere (see derivations/default.nix)
+    # our own packages, as pkgs.<name>
     ourPkgs = import ./derivations { inherit utils; };
     pkgs-claude = import nixpkgs-claude {
       inherit system;
@@ -34,8 +34,7 @@
 
       modules = [
         ./configuration.nix
-        # useGlobalPkgs below means home-manager shares this pkgs, so one
-        # overlay here reaches system modules and user modules alike
+        # useGlobalPkgs below shares this pkgs, so the overlay reaches user modules too
         { nixpkgs.overlays = [ ourPkgs ]; }
         home-manager.nixosModules.home-manager
         {

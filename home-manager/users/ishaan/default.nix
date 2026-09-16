@@ -1,11 +1,9 @@
 { pkgs, mkTheme, ... }:
 
 let
-  # tetrio-desktop (Electron) fails to paint on NVIDIA + Wayland: the GPU
-  # process can't allocate GBM buffers ("Cannot create bo ... usage=SCANOUT"),
-  # the GL context is lost immediately, and no window ever appears. Disabling
-  # GPU compositing sidesteps it. Wrap the package so the `tetrio` command
-  # always carries the flag, regardless of how it's launched (shell, rofi, ...).
+  # tetrio-desktop (Electron) never paints on NVIDIA + Wayland: the GPU process can't allocate
+  # GBM buffers ("Cannot create bo ... usage=SCANOUT")
+  # wrapped so the flag applies however it's launched (shell, rofi, ...)
   tetrio-desktop-wrapped = pkgs.symlinkJoin {
     name = "tetrio-desktop-wrapped";
     paths = [ pkgs.tetrio-desktop ];
@@ -14,8 +12,7 @@ let
       wrapProgram $out/bin/tetrio \
         --add-flags "--disable-gpu-compositing"
 
-      # The .desktop file (used by the app menu) hard-codes the unwrapped
-      # store path in Exec=, bypassing the wrapper. Repoint it at ours.
+      # the .desktop Exec= hard-codes the unwrapped store path; repoint it
       rm -f $out/share/applications/TETR.IO.desktop
       substitute ${pkgs.tetrio-desktop}/share/applications/TETR.IO.desktop \
         $out/share/applications/TETR.IO.desktop \

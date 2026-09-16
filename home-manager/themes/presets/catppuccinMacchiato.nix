@@ -1,6 +1,6 @@
 { pkgs, wallpapers }:
 
-# takes `pkgs` like every theme file; sets no icon or cursor theme, so it goes unused
+# `pkgs` goes unused: no icon or cursor theme set
 
 {
   wallpaper = wallpapers.default;

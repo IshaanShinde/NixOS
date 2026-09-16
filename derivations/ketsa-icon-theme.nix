@@ -1,22 +1,9 @@
-# Ketsa icon theme by zayronxio.
+# Ketsa icon theme by zayronxio; not in nixpkgs.
 #   https://github.com/zayronxio/ketsa-icon-theme
-#   https://store.kde.org/p/1214846
 #
-# Not in nixpkgs. Upstream ships no build system: the repo root *is* the theme
-# (index.theme sits beside apps/, places/, ...), so unlike a repo holding named
-# theme directories, the whole source is copied into one `ketsa` directory here.
-#
-# Three things upstream leaves undone that this fixes up:
-#   - no icon-theme.cache at all, generated at build time so lookups hit the
-#     cache instead of walking ~1900 files
-#   - index.theme's `Directories=` lists only four of the five icon dirs,
-#     omitting devices/192; an unlisted directory is invisible to gtk, so its
-#     icons (battery) never resolve. The line is rewritten to include it.
-#   - Icons-Individuales/ is a loose pile of 8 svgs outside the theme layout
-#     (no size directory, not in `Directories=`), so it is left out entirely
-#
-# index.theme declares `Inherits=breeze,elementary,gnome,hicolor`, so all three
-# are propagated: the fork defines ~1900 icons and leans on them for the rest.
+# Upstream ships no build system: the repo root is the theme, copied wholesale
+# Fixed up here: missing icon-theme.cache, devices/192 absent from `Directories=`,
+# and Icons-Individuales/ (8 loose svgs) dropped
 { lib
 , stdenvNoCC
 , fetchFromGitHub
@@ -40,18 +27,16 @@ stdenvNoCC.mkDerivation {
   # gtk-update-icon-cache lives in gtk3
   nativeBuildInputs = [ gtk3 ];
 
-  # the themes ketsa inherits for everything it does not define
+  # index.theme's `Inherits=breeze,elementary,gnome,hicolor`
   propagatedBuildInputs = [
     kdePackages.breeze-icons
     pantheon.elementary-icon-theme
-    adwaita-icon-theme # the "gnome" theme; adwaita carries its name
+    adwaita-icon-theme # the "gnome" theme
   ];
 
-  dontDropIconThemeCache = true; # this derivation builds the cache itself
+  dontDropIconThemeCache = true; # built below
 
-  # breeze-icons pulls in qt's setup hooks, which refuse to run unless the build
-  # says what to do about wrapping; nothing here is a qt app, only icon files
-  dontWrapQtApps = true;
+  dontWrapQtApps = true; # breeze-icons pulls in qt's setup hooks; icons only
 
   installPhase = ''
     runHook preInstall
@@ -59,18 +44,16 @@ stdenvNoCC.mkDerivation {
     dir=$out/share/icons/ketsa
     mkdir -p "$dir"
 
-    # the repo root is the theme, minus the non-theme files and the loose pile
+    # the theme, minus the non-theme files and Icons-Individuales/
     cp -r index.theme apps devices mimetypes places "$dir"/
 
-    # devices/192 holds icons but is missing from `Directories=`, which is the
-    # only list gtk reads; without it the directory may as well not exist
+    # gtk only reads `Directories=`, so an unlisted devices/192 is invisible
     substituteInPlace "$dir/index.theme" \
       --replace-fail \
         'Directories=apps/64,places/64,places/16,mimetypes/128' \
         'Directories=apps/64,places/64,places/16,mimetypes/128,devices/192'
 
-    # and the matching section describing that directory, which gtk needs to
-    # know what size the icons in it are
+    # and its size section
     cat >> "$dir/index.theme" <<-'EOF'
 
 	[devices/192]

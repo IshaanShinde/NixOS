@@ -12,10 +12,7 @@ rec {
     in
       "${builtins.substring high 1 digits}${builtins.substring low 1 digits}";
 
-  # names of the importable entries in dir, excluding default.nix itself:
-  # a `<name>.nix` file, or a `<name>/` directory holding its own default.nix
-  # (both import the same way, so a thing can grow from one file into a
-  # directory of files without anything that reads it changing)
+  # importable entries in dir, excluding default.nix: a `<name>.nix` file, or a `<name>/` holding one
   nixFilesIn = dir:
     let
       entries = builtins.readDir dir;
@@ -46,19 +43,19 @@ rec {
         entries.${name} == "regular"
         && builtins.match ".*\\.(png|jpg|jpeg|webp)" name != null;
 
-      # strips the file extension off a filename
+      # filename minus extension
       stem = name: builtins.head (builtins.match "(.*)\\.[^.]+" name);
 
       names = builtins.filter isImage (builtins.attrNames entries);
 
       byName = builtins.listToAttrs (map (name: {
         name = stem name;
-        # copies the file to the store and takes its path as a string
+        # copies to the store, as a path string
         value = "${dir + "/${name}"}";
       }) names);
     in
       byName // {
-        # the wallpaper used when a theme names none
+        # used when a theme names no wallpaper
         default =
           if byName ? windows-xplosion
           then byName.windows-xplosion
@@ -70,10 +67,7 @@ rec {
       };
 
   # { <name> = import <the entry>; } for every importable entry in dir
-  # `<name>.nix` if that file exists, else the `<name>/` directory, which nix
-  # imports as its default.nix
-  # whatever the file evaluates to is passed through as-is; if it is a function
-  # (theme files are) the caller is the one that applies it
+  # passed through unapplied; a file evaluating to a function is the caller's to apply
   importNixFilesIn = dir:
     builtins.listToAttrs (map (name: {
       inherit name;

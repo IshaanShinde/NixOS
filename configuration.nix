@@ -19,16 +19,16 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
-    open = true;  # Recommended for RTX 40 series (Turing+)
+    open = true;  # recommended for RTX 40 series (Turing+)
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Hyprland + NVIDIA compatibility
+  # Hyprland + NVIDIA
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    NIXOS_OZONE_WL = "1";  # Wayland for Electron apps (VSCode, etc.)
+    NIXOS_OZONE_WL = "1";  # wayland for electron apps
     STEAM_FORCE_DESKTOPUI_SCALING = "2";
   };
 
@@ -70,7 +70,7 @@
   
   programs.firefox.enable = true;
 
-  # Cloudflare WARP (installs cloudflare-warp + enables warp-svc daemon)
+  # cloudflare warp; enables the warp-svc daemon
   services.cloudflare-warp.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -87,7 +87,7 @@
     noto-fonts-cjk-sans # chinese japanese korean
     noto-fonts-color-emoji
 
-    # from derivations/apple-fonts.nix, via the overlay in flake.nix
+    # derivations/apple-fonts.nix
     sf-pro
     sf-mono
     sf-compact

@@ -22,8 +22,7 @@
         }
       ];
       
-      # enables communication via hyprctl hyprpaper
-      ipc = true;
+      ipc = true; # for hyprctl hyprpaper
       splash = false;
     };
   };

@@ -1,13 +1,5 @@
-# Apple fonts, fetched directly from Apple's CDN (the same downloads as
-# https://developer.apple.com/fonts). Nothing is redistributed: each build
-# downloads the official .dmg from Apple and unpacks it locally.
-#
-# The .dmg is a disk image containing a .pkg (xar archive), which contains
-# a gzipped Payload, which is a cpio archive holding the actual .otf files.
-# 7zz understands every layer, hence the repeated extraction.
-#
-# License: Apple's font license permits use for Apple-platform design work
-# and mockups only; marked unfree so these never land in a binary cache.
+# Apple fonts, built from the .dmg downloads at https://developer.apple.com/fonts
+# Unfree: Apple's license covers Apple-platform design work and mockups only.
 { lib, stdenvNoCC, fetchurl, _7zz }:
 
 let
@@ -20,6 +12,7 @@ let
 
       nativeBuildInputs = [ _7zz ];
 
+      # dmg -> pkg -> Payload -> cpio -> .otf files
       unpackPhase = ''
         runHook preUnpack
         7zz x $src

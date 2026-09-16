@@ -1,5 +1,4 @@
-# selector -> declarations; themes/gtk.nix scopes each to `.thunar` and emits
-# it for both states, so a rule here means the same focused or not
+# selector -> declarations; themes/gtk.nix scopes each to `.thunar` for both states
 
 {
   # the window tints at the theme opacity; inner surfaces clear so it shows
@@ -13,7 +12,6 @@
   ".sidebar, placessidebar, placessidebar list" = "background: transparent;";
   "scrolledwindow, treeview.view, .view" = "background: transparent;";
   "notebook, notebook stack" = "background: transparent;";
-  # the paned separator is the divider; drop the sidebar's own edge so the
-  # two do not stack into a double line
+  # the paned separator is the divider; drop the sidebar's own edge, else double
   ".sidebar:not(separator)" = "border-right-style: none; border-left-style: none;";
 }

@@ -1,11 +1,9 @@
 { utils }:
 
-# resolves a theme name against ./presets plus the user's own dir; returns a module to import, not an attrset
+# resolves a theme name against ./presets plus the user's own dir
 { name, userThemes ? null }:
 
-# a module, so `pkgs` arrives from the module system rather than the flake; a
-# theme file is a function taking `{ pkgs, wallpapers }`, which is how it names
-# packages and wallpapers instead of just naming strings
+# returns a module, not an attrset, so `pkgs` arrives from the module system
 { pkgs, ... }:
 
 let
@@ -27,10 +25,10 @@ let
       available: ${builtins.concatStringsSep ", " (builtins.attrNames themes)}
     '';
 
-  # theme files are functions; apply to get the attrset of values
+  # theme files are functions of { pkgs, wallpapers }
   selected = chosen { inherit pkgs; wallpapers = utils.wallpapers; };
 
-  # fallbacks, each overridden by any theme that sets its own
+  # overridden by any theme that sets its own
   defaults = {
     fontMono  = "DejaVu Sans Mono";
     fontSans  = "DejaVu Sans";
@@ -45,7 +43,7 @@ let
     opacityMax = utils.toHex 1.0;
   };
   theme = resolved // {
-    # `gtk` in a theme file stays the override block; this is the output
+    # the generated colors; `gtk` in a theme file stays the override block
     gtkColors = import ./gtk.nix { inherit utils; } resolved;
   };
 in
