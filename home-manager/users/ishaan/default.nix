@@ -42,10 +42,14 @@ in
   home.stateVersion = "25.11";
 
   home.packages = with pkgs; [
+    # already in configuration.nix
+    # git
+    # vim
+    # wget
+    # firefox
+    # openrgb-with-all-plugins
+
     # base
-    git
-    vim
-    wget
     zip
     unzip
 
@@ -55,15 +59,11 @@ in
     # browsers
     brave
     vivaldi
-    firefox
     google-chrome
 
     # communication
     discord
     signal-desktop
-
-    # rgb
-    openrgb-with-all-plugins
 
     # other
     spotify

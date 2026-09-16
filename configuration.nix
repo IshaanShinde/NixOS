@@ -86,12 +86,13 @@
     noto-fonts
     noto-fonts-cjk-sans # chinese japanese korean
     noto-fonts-color-emoji
-  ] ++ (with pkgs.callPackage ./derivations/apple-fonts.nix { }; [
+
+    # from derivations/apple-fonts.nix, via the overlay in flake.nix
     sf-pro
     sf-mono
     sf-compact
     new-york
-  ]);
+  ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   

@@ -1,5 +1,9 @@
+{ pkgs, wallpapers }:
+
+# takes `pkgs` like every theme file; sets no icon or cursor theme, so it goes unused
+
 {
-  wallpaper = "~/Media/Xiao --M-A- （抹茶茶香）.jpg";
+  wallpaper = wallpapers.default;
 
   opacity = 0.8;
 

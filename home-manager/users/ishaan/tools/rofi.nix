@@ -1,9 +1,30 @@
-{ config, theme, ... }:
+{ config, lib, theme, ... }:
 
 let
   l = config.lib.formats.rasi.mkLiteral;
   border = "${toString theme.border_size}px";
   radius = "${toString theme.border_radius}px";
+
+  # Grid vs list is not a rofi feature with a switch; it falls out of the
+  # listview/element blocks below. Flip this and rebuild to change layout.
+  gridMode = false;
+
+  # Only what actually differs between the two; everything else is shared
+  # below and merged into by recursiveUpdate.
+  layout = if gridMode then {
+    window.width = l "55em";
+    listview = { columns = 5; lines = 4; fixed-columns = true; fixed-height = true; };
+    # spacing = gap between icon and label, stacked vertically
+    element = { orientation = l "vertical"; padding = l "0.75em 0.25em"; spacing = l "0.5em"; };
+    element-icon = { size = l "2.5em"; horizontal-align = l "0.5"; };
+    element-text = { horizontal-align = l "0.5"; vertical-align = l "0.5"; };
+  } else {
+    window.width = l "40em";
+    listview.spacing = l "0.25em";
+    element.padding = l "0.5em 1em";
+    element-icon = { size = l "1em"; margin = l "0 0.5em 0 0"; };
+    element-text.vertical-align = l "0.25";
+  };
 in
 {
   programs.rofi = {
@@ -16,9 +37,12 @@ in
       display-drun = "";
       drun-display-format = "{name}";
       scroll-method = 1;
-    };
+    }
+    # rofi has no gtk setting to inherit; it takes the name itself, and a theme
+    # naming no icon set leaves rofi on its default
+    // (if theme ? icons then { icon-theme = theme.icons.name; } else { });
 
-    theme = {
+    theme = lib.recursiveUpdate {
       "*" = {
         bg = l "#${theme.bg}";
         bgt = l "#${theme.bg}${theme.opacityHex}";
@@ -30,7 +54,6 @@ in
       };
 
       window = {
-        width = l "40em";
         height = l "40em";
         location = l "center";
         x-offset = l "-6em";
@@ -64,7 +87,7 @@ in
 
       listview = {
         fixed-height = false;
-        spacing = l "0.25em";
+        spacing = l "0.5em";
         padding = l "0.25em 0 0 0";
       };
 
@@ -78,15 +101,7 @@ in
         text-color = l "@bg";
       };
 
-      element-icon = {
-        size = l "1em";
-        margin = l "0 0.5em 0 0";
-      };
-
-      element-text = {
-        text-color = l "inherit";
-        vertical-align = l "0.25";
-      };
-    };
+      element-text.text-color = l "inherit";
+    } layout;
   };
 }

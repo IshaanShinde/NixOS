@@ -137,10 +137,12 @@ let
     (map (n: "@define-color ${n} ${toString colors.${n}};")
       (builtins.attrNames colors));
 
-  # selector that scopes a rule to one app; verify with GTK_DEBUG=interactive <app>
-  appScope = {
-    thunar = ".thunar";
-  };
+  # the theme's `apps = { <app> = ...; }` block, empty if it has none
+  apps = or' "apps" { };
+
+  # gtk puts the application name on the root window node as a style class, so
+  # the app's own name is its scope; verify with GTK_DEBUG=interactive <app>
+  appScope = app: ".${app}";
 
   # in a css selector list each part stands alone, so every part gets the scope
   # and the suffix (":backdrop"), which must land on the part, not the list
@@ -191,33 +193,40 @@ let
   # the pins for one app, scoped to it
   backdropBlock = app:
     let
-      scope = appScope.${app};
+      scope = appScope app;
       pin = s: "${scopeSel scope ":backdrop" s} { ${toString backdropPins.${s}} }";
       both = s: "${scopeSel scope "" s}, ${scopeSel scope ":backdrop" s} { ${toString statePins.${s}} }";
     in builtins.concatStringsSep "\n"
       (map pin (builtins.attrNames backdropPins)
        ++ map both (builtins.attrNames statePins));
 
-  # an app block in a theme file: { thunar = { ".sidebar" = "background: @window_bg_color;"; }; }
-  # gtk styles an unfocused window apart (:backdrop); emitting both keeps the
-  # look static, so a rule here means the same focused or not
+  # an app entry is either an attrset of selector -> declarations:
+  #   apps.thunar = { ".sidebar" = "background: @window_bg_color;"; };
+  # each selector is scoped to the app and emitted for both states, since gtk
+  # styles an unfocused window apart (:backdrop) and the look should not move
+  #
+  # or a string of css, passed through untouched:
+  #   apps.thunar = '''.thunar .sidebar { ... }''';
+  # for what the attrset cannot say (@media, nesting); it is the author's job
+  # to scope it and to restate anything that needs to survive :backdrop
   appRules = app:
     let
-      sels = theme.${app};
-      scope = appScope.${app};
-      rule = s: "${scopeSel scope "" s}, ${scopeSel scope ":backdrop" s} { ${toString sels.${s}} }";
-    in builtins.concatStringsSep "\n" (map rule (builtins.attrNames sels));
+      entry = apps.${app};
+      scope = appScope app;
+      rule = s: "${scopeSel scope "" s}, ${scopeSel scope ":backdrop" s} { ${toString entry.${s}} }";
+    in
+      if builtins.isString entry
+      then entry
+      else builtins.concatStringsSep "\n" (map rule (builtins.attrNames entry));
 
-  # app blocks the theme actually set
-  themed = builtins.filter (app: theme ? ${app}) (builtins.attrNames appScope);
+  named = builtins.attrNames apps;
 
-  # every scoped app gets the backdrop pins, whether or not it has a theme block
+  # every app named by the theme gets the backdrop pins, then its own rules
   pinnedBlock = builtins.concatStringsSep "\n\n"
-    (map (app: "/* ${app}: focused == unfocused */\n${backdropBlock app}")
-      (builtins.attrNames appScope));
+    (map (app: "/* ${app}: focused == unfocused */\n${backdropBlock app}") named);
 
   appBlock = builtins.concatStringsSep "\n\n"
-    (map (app: "/* ${app} */\n${appRules app}") themed);
+    (map (app: "/* ${app} */\n${appRules app}") named);
 in
 {
   # the resolved name -> value map, for anything needing the colors directly
@@ -225,11 +234,10 @@ in
 
   # user gtk.css: loads after the theme's own, so these redefinitions win
   # order matters: colors, then the backdrop pins, then the theme's own app
-  # rules last so a `thunar = { ... }` block can still override a pin
+  # rules last so an `apps.thunar = { ... }` block can still override a pin
   css = ''
     /* generated from the active theme; edits here are overwritten */
     ${block}
   ''
-  + "\n${pinnedBlock}\n"
-  + (if themed == [ ] then "" else "\n${appBlock}\n");
+  + (if named == [ ] then "" else "\n${pinnedBlock}\n\n${appBlock}\n");
 }

@@ -1,0 +1,75 @@
+# Infinity icon theme, a Breeze fork by rogts.
+#   https://github.com/rogts/infinity-icon-theme
+#   https://www.gnome-look.org/p/2112373
+#
+# Not in nixpkgs. Upstream ships no build system, just two finished icon
+# directories (`infinity`, `infinity-dark`) that are copied into place.
+#
+# Two things upstream leaves behind that this fixes up:
+#   - a stale icon-theme.cache in each directory, regenerated at build time so
+#     gtk-update-icon-cache does not read a cache older than the icons
+#   - ~40 dangling symlinks (links to icons the fork dropped), removed so the
+#     result has no broken paths
+#
+# The dark variant's index.theme declares `Inherits=breeze,hicolor`, so
+# breeze-icons is propagated: without it every icon the fork does not define
+# falls through to hicolor and renders as a blank.
+{ lib
+, stdenvNoCC
+, fetchFromGitHub
+, gtk3
+, kdePackages
+}:
+
+stdenvNoCC.mkDerivation {
+  pname = "infinity-icon-theme";
+  version = "0-unstable-2023-12-07"; # upstream tags nothing; last commit
+
+  src = fetchFromGitHub {
+    owner = "rogts";
+    repo = "infinity-icon-theme";
+    rev = "55370c3a9076d0793c1157f6e667d79bd6f9f4b8";
+    hash = "sha256-i3DpuO3/15nlmdm1tdnqJJgNSzA2YAY3PPpadDV2V9g=";
+  };
+
+  # gtk-update-icon-cache lives in gtk3
+  nativeBuildInputs = [ gtk3 ];
+
+  # the dark variant inherits the real breeze theme for everything it omits
+  propagatedBuildInputs = [ kdePackages.breeze-icons ];
+
+  dontDropIconThemeCache = true; # this derivation builds the caches itself
+
+  # breeze-icons pulls in qt's setup hooks, which refuse to run unless the build
+  # says what to do about wrapping; nothing here is a qt app, only icon files
+  dontWrapQtApps = true;
+
+  # fix the two themes up in the build tree, so installPhase is a plain copy
+  buildPhase = ''
+    runHook preBuild
+
+    for theme in infinity infinity-dark; do
+      find "$theme" -xtype l -delete   # -xtype l: a symlink with no target
+      rm -f "$theme"/icon-theme.cache  # upstream's, older than its own icons
+      gtk-update-icon-cache --force --quiet "$theme"
+    done
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/share/icons
+    cp -r infinity infinity-dark $out/share/icons/
+
+    runHook postInstall
+  '';
+
+  meta = {
+    description = "Infinity icon theme, a Breeze fork";
+    homepage = "https://github.com/rogts/infinity-icon-theme";
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.all;
+  };
+}

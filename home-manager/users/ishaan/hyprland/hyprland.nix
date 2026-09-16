@@ -50,6 +50,9 @@
       # NVIDIA cursor fix (replaces deprecated WLR_NO_HARDWARE_CURSORS)
       cursor = {
         no_hardware_cursors = true;
+        # Hide the cursor after 1s without mouse movement; any move brings it back
+        inactive_timeout = 1;
+        hide_on_key_press = true;
       };
       
       # General
@@ -189,7 +192,18 @@
         "$mainMod, mouse_down, workspace, r+1"
         "$mainMod, mouse_up, workspace, r-1"
       ];
-      
+
+      # Resize the active window (held keys repeat). Third layer on the same
+      # hjkl directions: mainMod = focus, SHIFT = swap, CTRL = resize.
+      # Direction is "move the active edge that way", not grow/shrink, so the
+      # effect depends on where the window sits in the dwindle split.
+      binde = [
+        "$mainMod CTRL, h, resizeactive, -40 0"
+        "$mainMod CTRL, j, resizeactive, 0 40"
+        "$mainMod CTRL, k, resizeactive, 0 -40"
+        "$mainMod CTRL, l, resizeactive, 40 0"
+      ];
+
       # Mouse binds
       bindm = [
         "$mainMod, mouse:272, movewindow"

@@ -19,6 +19,8 @@
     system = "x86_64-linux";
     utils = import ./lib { };
     mkTheme = import ./home-manager/themes { inherit utils; };
+    # our own packages, as pkgs.<name> everywhere (see derivations/default.nix)
+    ourPkgs = import ./derivations { inherit utils; };
     pkgs-claude = import nixpkgs-claude {
       inherit system;
       config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
@@ -32,6 +34,9 @@
 
       modules = [
         ./configuration.nix
+        # useGlobalPkgs below means home-manager shares this pkgs, so one
+        # overlay here reaches system modules and user modules alike
+        { nixpkgs.overlays = [ ourPkgs ]; }
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

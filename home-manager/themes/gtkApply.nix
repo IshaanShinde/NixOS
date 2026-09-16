@@ -1,4 +1,4 @@
-{ pkgs, theme, ... }:
+{ pkgs, lib, theme, ... }:
 
 # applies the active theme to gtk apps (thunar, file dialogs, ...); adw-gtk3 supplies the stylesheet, gtk.nix redefines the colors it is built on
 
@@ -15,6 +15,10 @@
       name = theme.fontSans;
       size = builtins.fromJSON theme.fontsize;
     };
+
+    # unlike the pointer, an icon set is a per-toolkit setting, so gtk's lives
+    # here; a theme that names none leaves gtk on its default
+    iconTheme = lib.mkIf (theme ? icons) theme.icons;
 
     # loads after the theme's own css, so these redefinitions win
     gtk3.extraCss = theme.gtkColors.css;
