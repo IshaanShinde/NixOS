@@ -1,10 +1,21 @@
 { pkgs, ... }:
 
+let
+  # Mermaid Preview ("Mermaid OSS"); not in nixpkgs, so pulled from the marketplace.
+  mermaid-preview = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      publisher = "vstirbu";
+      name = "vscode-mermaid-preview";
+      version = "2.2.0";
+      sha256 = "0nlqw6bxsxxj981w0vw8znvghz3fx83pcjm3ps3bsw2wkbnwypd6";
+    };
+  };
+in
 {
   programs.vscode = {
     enable = true;
     profiles.default = {
-      extensions = with pkgs.vscode-extensions; [
+      extensions = (with pkgs.vscode-extensions; [
         bbenoist.nix
         kamikillerto.vscode-colorize
         tomoki1207.pdf
@@ -12,6 +23,8 @@
         ms-python.debugpy
         ms-python.vscode-pylance
         anthropic.claude-code
+      ]) ++ [
+        mermaid-preview
       ];
 
       userSettings = {

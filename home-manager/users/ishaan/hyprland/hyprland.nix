@@ -19,18 +19,18 @@
         "HDMI-A-2, 1920x1080@165, -1920x0, 1"
       ];
 
-      # HDMI-A-2 keeps workspace 1; 2-10 live on the 4k
       workspace = [
         "1, monitor:HDMI-A-2, default:true, persistent:true"
-        "2, monitor:DP-4, default:true"
-        "3, monitor:DP-4"
-        "4, monitor:DP-4"
+        "2, monitor:HDMI-A-2"
+        "3, monitor:HDMI-A-2"
+        "4, monitor:HDMI-A-2"
+        
         "5, monitor:DP-4"
         "6, monitor:DP-4"
         "7, monitor:DP-4"
         "8, monitor:DP-4"
         "9, monitor:DP-4"
-        "10, monitor:DP-4"
+        "10, monitor:DP-4, default:true"
       ];
       
       # Programs
