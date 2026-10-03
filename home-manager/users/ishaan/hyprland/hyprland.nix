@@ -36,7 +36,8 @@
       # Programs
       "$terminal" = "foot";
       "$fileManager" = "thunar";
-      "$menu" = "rofi -show drun";
+      # the menu panel opens with rofi and closes when rofi exits (Escape or a launch); pressed again while rofi is open, it closes both
+      "$menu" = "pkill -x rofi || { menu show; rofi -show drun; menu hide; }";
       "$mainMod" = "SUPER";
       
       # Environment variables

@@ -34,6 +34,8 @@
 
   networking.hostName = "lisbeth";
   networking.networkmanager.enable = true;
+  # bluez, for the onboard MediaTek adapter (hci0); the menu's bluetooth panel talks to it over dbus
+  hardware.bluetooth.enable = true;
 
   time.timeZone = "Asia/Kolkata";  
 

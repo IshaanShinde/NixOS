@@ -44,6 +44,8 @@
           home-manager.extraSpecialArgs = {
             inherit pkgs-claude utils mkTheme;
           };
+          # options every user gets; each opts in themselves
+          home-manager.sharedModules = [ ./home-manager/menu ];
           home-manager.users.ishaan = import ./home-manager/users/ishaan;
         }
       ];

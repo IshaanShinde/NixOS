@@ -1,0 +1,11 @@
+--- a/source/widgets/widget.c	2026-10-03 22:24:24.264441702 +0530
++++ b/source/widgets/widget.c	2026-10-03 22:24:24.269441755 +0530
+@@ -265,6 +265,8 @@
+       cairo_translate(d, wid->x, wid->y);
+       cairo_new_path(d);
+       rofi_theme_get_color(wid, "border-color", d);
++      // a gradient here replaces border-color, which only takes one color
++      rofi_theme_get_image(wid, "border-image", d);
+ 
+       // Calculate the different offsets for the corners.
+       double minof_tr = MIN(right / 2.0, top / 2.0);

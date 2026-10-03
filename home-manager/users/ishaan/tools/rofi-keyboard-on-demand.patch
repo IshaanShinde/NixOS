@@ -1,0 +1,26 @@
+diff -ru a/include/wayland-internal.h b/include/wayland-internal.h
+--- a/include/wayland-internal.h	2026-10-04 00:35:29.895952330 +0530
++++ b/include/wayland-internal.h	2026-10-04 00:35:29.901952328 +0530
+@@ -129,7 +129,7 @@
+ #define WL_SEAT_INTERFACE_MAX_VERSION 8
+ #define WL_OUTPUT_INTERFACE_MIN_VERSION 2
+ #define WL_OUTPUT_INTERFACE_MAX_VERSION 4
+-#define WL_LAYER_SHELL_INTERFACE_VERSION 1
++#define WL_LAYER_SHELL_INTERFACE_VERSION 4
+ #define WL_KEYBOARD_SHORTCUTS_INHIBITOR_INTERFACE_VERSION 1
+ 
+ extern wayland_stuff *wayland;
+diff -ru a/source/wayland/display.c b/source/wayland/display.c
+--- a/source/wayland/display.c	2026-10-04 00:35:29.896952330 +0530
++++ b/source/wayland/display.c	2026-10-04 00:35:29.902952328 +0530
+@@ -1623,7 +1623,9 @@
+                                        ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT |
+                                        ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT);
+   zwlr_layer_surface_v1_set_size(wayland->wlr_surface, 0, 0);
+-  zwlr_layer_surface_v1_set_keyboard_interactivity(wayland->wlr_surface, 1);
++  // on demand, not exclusive: the compositor then also lets clicks reach the menu panel beside rofi
++  zwlr_layer_surface_v1_set_keyboard_interactivity(
++      wayland->wlr_surface, ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_ON_DEMAND);
+   zwlr_layer_surface_v1_add_listener(
+       wayland->wlr_surface, &wayland_layer_shell_surface_listener, NULL);
+ 
